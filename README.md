@@ -1,4 +1,4 @@
-![monero-symbol-12](https://user-images.githubusercontent.com/47786795/56756258-ab196d80-6791-11e9-9707-ffa521a32490.png)
+![ninja256x256](https://user-images.githubusercontent.com/47786795/56756397-fa5f9e00-6791-11e9-8b2f-4df21b2182f5.png)
 
 #### Master Build Status
 [![Build Status](https://travis-ci.org/turtlecoin/turtlecoin.svg?branch=master)](https://travis-ci.org/turtlecoin/turtlecoin) [![Build status](https://ci.appveyor.com/api/projects/status/github/turtlecoin/turtlecoin?branch=master&svg=true)](https://ci.appveyor.com/project/RocksteadyTC/turtlecoin)
