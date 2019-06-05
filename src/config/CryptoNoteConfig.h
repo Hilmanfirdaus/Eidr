@@ -167,8 +167,8 @@ static_assert(UPGRADE_VOTING_WINDOW > 1, "Bad UPGRADE_VOTING_WINDOW");
 /* Block heights we are going to have hard forks at */
 const uint64_t FORK_HEIGHTS[] =
 {
-    60000,  // 0
-    130000,  // 1
+    187000,  // 0
+    350000,  // 1
     440000,  // 2
     620000,  // 3
     700000,  // 4
@@ -183,7 +183,7 @@ const uint64_t FORK_HEIGHTS[] =
 };
 
 /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
-const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX                 = 1;
+const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX                 = 9;
 
 const uint64_t FORK_HEIGHTS_SIZE = sizeof(FORK_HEIGHTS) / sizeof(*FORK_HEIGHTS);
 
@@ -225,8 +225,8 @@ const size_t   BLOCKS_IDS_SYNCHRONIZING_DEFAULT_COUNT        =  10000;  //by def
 const uint64_t BLOCKS_SYNCHRONIZING_DEFAULT_COUNT            =  100;    //by default, blocks count in blocks downloading
 const size_t   COMMAND_RPC_GET_BLOCKS_FAST_MAX_COUNT         =  1000;
 
-const int      P2P_DEFAULT_PORT                              =  11897;
-const int      RPC_DEFAULT_PORT                              =  11898;
+const int      P2P_DEFAULT_PORT                              =  11800;
+const int      RPC_DEFAULT_PORT                              =  11801;
 const int      SERVICE_DEFAULT_PORT                          =  8070;
 
 const size_t   P2P_LOCAL_WHITE_PEERLIST_LIMIT                =  1000;
@@ -261,21 +261,15 @@ const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE          = 10;
 const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES               = 100;
 const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT     = 2;
 
-const char     LATEST_VERSION_URL[]                          = "";
-const std::string LICENSE_URL                                = "";
+const char     LATEST_VERSION_URL[]                          = "https://github.com/NinjaCoin-Master/NinjaCoin/releases/latest";
+const std::string LICENSE_URL                                = "https://github.com/NinjaCoin-Master/NinjaCoin/blob/master/LICENSE";
 const static   boost::uuids::uuid CRYPTONOTE_NETWORK         =
 {
     {  0xcb, 0x0c, 0x4a, 0x6c, 0xcf, 0x72, 0x57, 0x41, 0x25, 0xf9, 0x91, 0xa5, 0xb6, 0xc1, 0x42, 0xe2  }
 };
 
 const char* const SEED_NODES[] = {
-  "104.248.26.181:11897",
-  "114.116.27.122:11897",
-   "46.101.220.197:11897",
-   "173.249.18.43:11897",
-   "92.20.255.30:11897",
-   "35.237.249.217:11897",
-   "213.136.89.252:11897",
-   "173.249.22.235:11897",
+   "188.166.43.40:11800",
+   "165.227.157.221:11800",
 };
 } // CryptoNote
