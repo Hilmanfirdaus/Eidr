@@ -1,4 +1,4 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 // 
 // Please see the included LICENSE file for more information.
 
@@ -204,6 +204,12 @@ enum ErrorCode
        NOTE: Not used in WalletBackend, only here to maintain API compatibility
        with ninjacoin-wallet-backend-js */
     NON_INTEGER_GIVEN = 50,
+
+    /* Not on ed25519 curve */
+    INVALID_PUBLIC_KEY = 51,
+
+    /* Not on ed25519 curve */
+    INVALID_PRIVATE_KEY = 52,
 };
 
 class Error

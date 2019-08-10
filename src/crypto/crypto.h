@@ -1,7 +1,7 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
-// Copyright (c) 2014-2019, The Monero Project
-// Copyright (c) 2016-2019, The Karbowanec developers
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2016-2018, The Karbowanec developers
+// Copyright (c) 2018, The NinjaCoin Developers
 // 
 // Please see the included LICENSE file for more information.
 
@@ -86,6 +86,15 @@ struct EllipticCurveScalar {
             const KeyImage &image,
             const std::vector<PublicKey> pubs,
             const std::vector<Signature> signatures);
+
+        static void generateViewFromSpend(
+            const Crypto::SecretKey &spend,
+            Crypto::SecretKey &viewSecret);
+
+        static void generateViewFromSpend(
+            const Crypto::SecretKey &spend,
+            Crypto::SecretKey &viewSecret,
+            Crypto::PublicKey &viewPublic);
   };
 
   /* Generate a new key pair

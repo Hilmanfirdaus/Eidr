@@ -1,4 +1,4 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018-2019, The NinjaCoin Developers
 // 
 // Please see the included LICENSE file for more information.
 
@@ -32,7 +32,7 @@ std::string getInput(
     const std::vector<T> &availableCommands,
     const std::string prompt);
 
-std::tuple<std::string, uint16_t> getDaemonAddress();
+std::tuple<std::string, uint16_t, bool> getDaemonAddress();
 
 std::string getHash(
     const std::string msg,

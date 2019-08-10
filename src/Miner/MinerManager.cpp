@@ -1,6 +1,6 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
-// Copyright (c) 2014-2019, The Monero Project
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -15,9 +15,9 @@
 #include "Common/StringTools.h"
 #include <config/CryptoNoteConfig.h>
 #include "CryptoNoteCore/CachedBlock.h"
-#include "CryptoNoteCore/CryptoNoteTools.h"
+#include "Common/CryptoNoteTools.h"
 #include "CryptoNoteCore/CryptoNoteFormatUtils.h"
-#include "CryptoNoteCore/TransactionExtra.h"
+#include "Common/TransactionExtra.h"
 #include "Rpc/HttpClient.h"
 #include "Rpc/CoreRpcServerCommandsDefinitions.h"
 #include "Rpc/JsonRpc.h"

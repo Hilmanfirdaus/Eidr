@@ -1,5 +1,5 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -21,7 +21,7 @@ struct MiningConfig
     std::string miningAddress;
     std::string daemonAddress;
     std::string daemonHost;
-    int daemonPort;
+    uint16_t daemonPort;
     size_t threadCount;
     size_t scanPeriod;
     size_t blocksLimit;

@@ -1,10 +1,12 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
 #pragma once
 
 #include <config/CryptoNoteConfig.h>
+
+#include <Logger/Logger.h>
 
 struct Config
 {
@@ -19,6 +21,9 @@ struct Config
 
     /* The value to use with the 'Access-Control-Allow-Origin' header */
     std::string corsHeader;
+
+    /* Controls what level of messages to log */
+    Logger::LogLevel logLevel = Logger::DISABLED;
 };
 
 Config parseArguments(int argc, char **argv);

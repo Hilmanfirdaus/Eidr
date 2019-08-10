@@ -1,6 +1,6 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
-// Copyright (c) 2014-2019, The Monero Project
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -13,9 +13,11 @@
 
 #include "CryptoNoteCore/CryptoNoteBasicImpl.h"
 #include "CryptoNoteCore/CryptoNoteFormatUtils.h"
-#include "CryptoNoteCore/CryptoNoteTools.h"
+#include "Common/CryptoNoteTools.h"
 #include "CryptoNoteCore/Currency.h"
 #include "P2p/LevinProtocol.h"
+
+#include <Serialization/SerializationTools.h>
 
 #include <Utilities/FormatTools.h>
 
@@ -285,7 +287,7 @@ bool CryptoNoteProtocolHandler::process_payload_sync_data(const CORE_SYNC_DATA& 
         ss << "You are " << std::abs(diff) << " blocks (" << days << " days) ahead ";
     }
 
-    ss << "the current peer you're connected to. Slow and steady wins the race! ";
+    ss << "the current peer you're connected to. Hey Ninja! We are synchronizing the blockchain! ";
 
     auto logLevel = Logging::TRACE;
     /* Log at different levels depending upon if we're ahead, behind, and if it's

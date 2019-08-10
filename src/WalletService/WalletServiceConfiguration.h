@@ -1,15 +1,15 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
 #pragma once
 
-#include <json.hpp>
+#include <rapidjson/document.h>
 #include <string>
 #include <config/CryptoNoteConfig.h>
 #include <Logging/ILogger.h>
 
-using nlohmann::json;
+using namespace rapidjson;
 
 namespace PaymentService {
   struct WalletServiceConfiguration
@@ -71,11 +71,11 @@ namespace PaymentService {
 
     uint64_t scanHeight;
   };
-  
+
   bool updateConfigFormat(const std::string configFile, WalletServiceConfiguration& config);
   void handleSettings(int argc, char* argv[], WalletServiceConfiguration& config);
   void handleSettings(const std::string configFile, WalletServiceConfiguration& config);
-  json asJSON(const WalletServiceConfiguration& config);
+  Document asJSON(const WalletServiceConfiguration& config);
   std::string asString(const WalletServiceConfiguration& config);
   void asFile(const WalletServiceConfiguration& config, const std::string& filename);
 }

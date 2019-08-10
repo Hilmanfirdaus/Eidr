@@ -1,6 +1,6 @@
 //
-// Copyright 2014-2019 The Monero Developers
-// Copyright 2019 The NinjaCoin Developers
+// Copyright 2014-2018 The Monero Developers
+// Copyright 2018 The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 

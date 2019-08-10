@@ -1,4 +1,4 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 // 
 // Please see the included LICENSE file for more information.
 
@@ -78,6 +78,8 @@ void cleanup(
 int main(int argc, char **argv)
 {
     Config config = parseArguments(argc, argv);
+
+    Logger::logger.setLogLevel(config.logLevel);
 
     std::cout << InformationMsg(CryptoNote::getProjectCLIHeader()) << std::endl;
 

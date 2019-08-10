@@ -1,6 +1,6 @@
 // pwdbased.h - originally written and placed in the public domain by Wei Dai
 //              Cutover to KeyDerivationFunction interface by Uri Blumenthal
-//              Marcel Raad and Jeffrey Walton in March 2019.
+//              Marcel Raad and Jeffrey Walton in March 2018.
 
 /// \file pwdbased.h
 /// \brief Password based key derivation functions
@@ -12,6 +12,7 @@
 #include "hrtimer.h"
 #include "integer.h"
 #include "argnames.h"
+#include "algparam.h"
 #include "hmac.h"
 
 NAMESPACE_BEGIN(CryptoPP)

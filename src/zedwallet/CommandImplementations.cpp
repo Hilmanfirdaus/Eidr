@@ -1,4 +1,4 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 // 
 // Please see the included LICENSE file for more information.
 
@@ -13,7 +13,7 @@
 #include <config/WalletConfig.h>
 
 #include <CryptoNoteCore/Account.h>
-#include <CryptoNoteCore/TransactionExtra.h>
+#include <Common/TransactionExtra.h>
 
 #ifndef MSVC
 #include <fstream>
@@ -78,7 +78,7 @@ void printPrivateKeys(CryptoNote::WalletGreen &wallet, bool viewWallet)
 
     Crypto::SecretKey derivedPrivateViewKey;
 
-    CryptoNote::AccountBase::generateViewFromSpend(privateSpendKey,
+    Crypto::crypto_ops::generateViewFromSpend(privateSpendKey,
                                                    derivedPrivateViewKey);
 
     const bool deterministicPrivateKeys

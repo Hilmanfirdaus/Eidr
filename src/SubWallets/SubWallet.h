@@ -1,4 +1,4 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 // 
 // Please see the included LICENSE file for more information.
 
@@ -74,8 +74,6 @@ class SubWallet
 
         std::string address() const;
 
-        bool hasKeyImage(const Crypto::KeyImage keyImage) const;
-
         Crypto::PublicKey publicSpendKey() const;
         
         Crypto::SecretKey privateSpendKey() const;
@@ -104,6 +102,10 @@ class SubWallet
         void convertSyncTimestampToHeight(
             const uint64_t timestamp,
             const uint64_t height);
+
+        void pruneSpentInputs(const uint64_t pruneHeight);
+
+        std::vector<Crypto::KeyImage> getKeyImages() const;
 
         /////////////////////////////
         /* Public member variables */

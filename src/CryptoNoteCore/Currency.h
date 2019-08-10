@@ -1,6 +1,6 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
-// Copyright (c) 2014-2019, The Monero Project
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2018, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -162,10 +162,6 @@ size_t difficultyBlocksCountByBlockVersion(uint8_t blockMajorVersion, uint32_t h
   bool checkProofOfWork(const CachedBlock& block, uint64_t currentDifficulty) const;
 
   Currency(Currency&& currency);
-
-  static size_t getApproximateMaximumInputCount(size_t transactionSize, size_t outputCount, size_t mixinCount);
-
-  static const std::vector<uint64_t> PRETTY_AMOUNTS;
 
 private:
   Currency(std::shared_ptr<Logging::ILogger> log) : logger(log, "currency") {

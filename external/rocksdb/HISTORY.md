@@ -1,45 +1,45 @@
 # Rocksdb Change Log
-### 5.15.10 (9/13/2019)
+### 5.15.10 (9/13/2018)
 ### Bug Fixes
 * Fix RocksDB Java build and tests.
 
-### 5.15.9 (9/4/2019)
+### 5.15.9 (9/4/2018)
 ### Bug Fixes
 * Fix compilation errors on OS X clang due to '-Wsuggest-override'.
 
-## 5.15.8 (8/31/2019)
+## 5.15.8 (8/31/2018)
 ### Bug Fixes
 * Further avoid creating empty SSTs and subsequently deleting them during compaction.
 
-## 5.15.7 (8/24/2019)
+## 5.15.7 (8/24/2018)
 ### Bug Fixes
 * Avoid creating empty SSTs and subsequently deleting them in certain cases during compaction.
 
-## 5.15.6 (8/21/2019)
+## 5.15.6 (8/21/2018)
 ### Public API Change
 * The merge operands are passed to `MergeOperator::ShouldMerge` in the reversed order relative to how they were merged (passed to FullMerge or FullMergeV2) for performance reasons
 
-## 5.15.5 (8/16/2019)
+## 5.15.5 (8/16/2018)
 ### Bug Fixes
 * Fix VerifyChecksum() API not preserving options
 
-## 5.15.4 (8/11/2019)
+## 5.15.4 (8/11/2018)
 ### Bug Fixes
 * Fix a bug caused by not generating OnTableFileCreated() notification for a 0-byte SST.
 
-## 5.15.3 (8/10/2019)
+## 5.15.3 (8/10/2018)
 ### Bug Fixes
 * Fix a bug in misreporting the estimated partition index size in properties block.
 
-## 5.15.2 (8/9/2019)
+## 5.15.2 (8/9/2018)
 ### Bug Fixes
 * Return correct usable_size for BlockContents.
 
-## 5.15.1 (8/1/2019)
+## 5.15.1 (8/1/2018)
 ### Bug Fixes
 * Prevent dereferencing invalid STL iterators when there are range tombstones in ingested files.
 
-## 5.15.0 (7/17/2019)
+## 5.15.0 (7/17/2018)
 ### Public API Change
 * Remove managed iterator. ReadOptions.managed is not effective anymore.
 * For bottommost_compression, a compatible CompressionOptions is added via `bottommost_compression_opts`. To keep backward compatible, a new boolean `enabled` is added to CompressionOptions. For compression_opts, it will be always used no matter what value of `enabled` is. For bottommost_compression_opts, it will only be used when user set `enabled=true`, otherwise, compression_opts will be used for bottommost_compression as default.
@@ -64,7 +64,7 @@
 * Fix a bug caused by not copying the block trailer with compressed SST file, direct IO, prefetcher and no compressed block cache.
 * Fix write can stuck indefinitely if enable_pipelined_write=true. The issue exists since pipelined write was introduced in 5.5.0.
 
-## 5.14.0 (5/16/2019)
+## 5.14.0 (5/16/2018)
 ### Public API Change
 * Add a BlockBasedTableOption to align uncompressed data blocks on the smaller of block size or page size boundary, to reduce flash reads by avoiding reads spanning 4K pages.
 * The background thread naming convention changed (on supporting platforms) to "rocksdb:<thread pool priority><thread number>", e.g., "rocksdb:low0".
@@ -97,7 +97,7 @@
 * Add `BlockBasedTableConfig.setBlockCache` to allow sharing a block cache across DB instances.
 * Added SstFileManager to the Java API to allow managing SST files across DB instances.
 
-## 5.13.0 (3/20/2019)
+## 5.13.0 (3/20/2018)
 ### Public API Change
 * RocksDBOptionsParser::Parse()'s `ignore_unknown_options` argument will only be effective if the option file shows it is generated using a higher version of RocksDB than the current version.
 * Remove CompactionEventListener.
@@ -113,7 +113,7 @@
 * Fix a leak in prepared_section_completed_ where the zeroed entries would not removed from the map.
 * Fix WAL corruption caused by race condition between user write thread and backup/checkpoint thread.
 
-## 5.12.0 (2/14/2019)
+## 5.12.0 (2/14/2018)
 ### Public API Change
 * Iterator::SeekForPrev is now a pure virtual method. This is to prevent user who implement the Iterator interface fail to implement SeekForPrev by mistake.
 * Add `include_end` option to make the range end exclusive when `include_end == false` in `DeleteFilesInRange()`.
@@ -135,7 +135,7 @@
 * Fix advance reservation of arena block addresses.
 * Fix handling of empty string as checkpoint directory.
 
-## 5.11.0 (01/08/2019)
+## 5.11.0 (01/08/2018)
 ### Public API Change
 * Add `autoTune` and `getBytesPerSecond()` to RocksJava RateLimiter
 

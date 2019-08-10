@@ -1,8 +1,6 @@
-// Copyright (c) 2019, The NinjaCoin Developers
+// Copyright (c) 2018, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
-
-#undef NDEBUG
 
 #include <iostream>
 #include <chrono>
@@ -167,7 +165,13 @@ void testHashFunction(
     }
 
     /* Verify the hash is as expected */
-    assert(CompareHashes(hash, expectedOutput));
+    if(!CompareHashes(hash, expectedOutput))
+    {
+        std::cout << "Hashes are not equal!\n" << "Expected: " << expectedOutput << "\nActual: " << hash
+                  << "\nTerminating.";
+
+        exit(1);
+    }
 }
 
 /* Bit of hackery so we can get the variable name of the passed in function.
@@ -338,15 +342,15 @@ int main(int argc, char** argv)
         
         std::cout << std::endl;
 
-        TEST_HASH_FUNCTION(cn_turtle_slow_hash_v0, CN_TURTLE_SLOW_HASH_V0);
-        TEST_HASH_FUNCTION(cn_turtle_slow_hash_v1, CN_TURTLE_SLOW_HASH_V1);
-        TEST_HASH_FUNCTION(cn_turtle_slow_hash_v2, CN_TURTLE_SLOW_HASH_V2);
+        TEST_HASH_FUNCTION(cn_ninja_slow_hash_v0, CN_TURTLE_SLOW_HASH_V0);
+        TEST_HASH_FUNCTION(cn_ninja_slow_hash_v1, CN_TURTLE_SLOW_HASH_V1);
+        TEST_HASH_FUNCTION(cn_ninja_slow_hash_v2, CN_TURTLE_SLOW_HASH_V2);
 
         std::cout << std::endl;
 
-        TEST_HASH_FUNCTION(cn_turtle_lite_slow_hash_v0, CN_TURTLE_LITE_SLOW_HASH_V0);
-        TEST_HASH_FUNCTION(cn_turtle_lite_slow_hash_v1, CN_TURTLE_LITE_SLOW_HASH_V1);
-        TEST_HASH_FUNCTION(cn_turtle_lite_slow_hash_v2, CN_TURTLE_LITE_SLOW_HASH_V2);
+        TEST_HASH_FUNCTION(cn_ninja_lite_slow_hash_v0, CN_TURTLE_LITE_SLOW_HASH_V0);
+        TEST_HASH_FUNCTION(cn_ninja_lite_slow_hash_v1, CN_TURTLE_LITE_SLOW_HASH_V1);
+        TEST_HASH_FUNCTION(cn_ninja_lite_slow_hash_v2, CN_TURTLE_LITE_SLOW_HASH_V2);
 
         std::cout << std::endl;
 
@@ -392,13 +396,13 @@ int main(int argc, char** argv)
             BENCHMARK(cn_dark_lite_slow_hash_v1, o_iterations);
             BENCHMARK(cn_dark_lite_slow_hash_v2, o_iterations);
 
-            BENCHMARK(cn_turtle_slow_hash_v0, o_iterations_long);
-            BENCHMARK(cn_turtle_slow_hash_v1, o_iterations_long);
-            BENCHMARK(cn_turtle_slow_hash_v2, o_iterations_long);
+            BENCHMARK(cn_ninja_slow_hash_v0, o_iterations_long);
+            BENCHMARK(cn_ninja_slow_hash_v1, o_iterations_long);
+            BENCHMARK(cn_ninja_slow_hash_v2, o_iterations_long);
 
-            BENCHMARK(cn_turtle_lite_slow_hash_v0, o_iterations_long);
-            BENCHMARK(cn_turtle_lite_slow_hash_v1, o_iterations_long);
-            BENCHMARK(cn_turtle_lite_slow_hash_v2, o_iterations_long);
+            BENCHMARK(cn_ninja_lite_slow_hash_v0, o_iterations_long);
+            BENCHMARK(cn_ninja_lite_slow_hash_v1, o_iterations_long);
+            BENCHMARK(cn_ninja_lite_slow_hash_v2, o_iterations_long);
         }
     }
     catch (std::exception& e)
