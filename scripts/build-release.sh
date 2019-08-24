@@ -115,11 +115,11 @@ then
 fi
 
 # -- Config
-GITHUB_REPO="https://github.com/ninjacoin/ninjacoin.git"
-CLONE_DIR="$BUILD_DIRECTORY/ninjacoin-buildall"
-TARGET_DIR="$BUILD_DIRECTORY/ninjacoin-releases"
-DYNAMIC_RELEASE="ninjacoin-${TAG_VERSION}-linux-CLI"
-STATIC_RELEASE="ninjacoin-${TAG_VERSION}-linux-staticboost-CLI"
+GITHUB_REPO="https://github.com/NinjaCoin/NinjaCoin.git"
+CLONE_DIR="$BUILD_DIRECTORY/NinjaCoin-buildall"
+TARGET_DIR="$BUILD_DIRECTORY/NinjaCoin-releases"
+DYNAMIC_RELEASE="NinjaCoin-${TAG_VERSION}-linux-CLI"
+STATIC_RELEASE="NinjaCoin-${TAG_VERSION}-linux-staticboost-CLI"
 
 checkout_tag
 build_static_linked_version

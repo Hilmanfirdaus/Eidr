@@ -20,13 +20,15 @@
 #include <cstddef>
 #include <initializer_list>
 
-namespace CryptoNote {
-struct CheckpointData {
-  uint32_t index;
-  const char* blockId;
-};
+namespace CryptoNote
+{
+    struct CheckpointData
+    {
+        uint32_t index;
+        const char *blockId;
+    };
 
-const std::initializer_list<CheckpointData> CHECKPOINTS = {  
+    const std::initializer_list<CheckpointData> CHECKPOINTS = {
   {         0, "f0b42cf4441abaa661b060a3ada2f0b136e931ee9cb62df5776d91f8023451ad"},
   {         2, "9b6bde3c8847a50e2dbe2f5bdd38581955bca65ed62152e7d00ba0e89acb6676"},
   {       100, "0645a3e9cf7d6ea80d13236c57a923e399f3808556550cd16dc2d27fee4a63d8"},
@@ -51,6 +53,6 @@ const std::initializer_list<CheckpointData> CHECKPOINTS = {
   {    250000, "35941da2494ad8a9d9867b729f2406757176b57d6f1ff07587eab9a4fec45108"},
   {    300000, "688715cfab7b9830660d0858138e8f8c89bfc1e8a5433123b4382e49238de2c6"},
   {    325000, "d81dc7f19ae8f2d5ede36e84ce063a542d6c1516ce85055deb8be14f51836a02"},
-  {    350000, "01fd588b2e65be17af0c962635df6f98b7a8a6958e22f09e1766482883d20c0a"}
-};
-}
+  {    350000, "01fd588b2e65be17af0c962635df6f98b7a8a6958e22f09e1766482883d20c0a"},
+  {    390000, "7aacdb95d05480dd4dd970103e610547235bab91ed9d08a60d4a61c526537e07"}};
+} // namespace CryptoNote

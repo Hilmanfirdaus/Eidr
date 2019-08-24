@@ -1,4 +1,4 @@
-# setup - pull a copy of ninjacoin-development 
+# setup - pull a copy of NinjaCoin-development 
 # and put it inside a timestamped folder.
 # rock made this
 #!/usr/bin/env bash
@@ -32,7 +32,7 @@ echo -e "\n\n\n== CLONING NinjaCoin in $sourcefolder"
 # master branch instead, and it will get the source from the last
 # time that we merged development to master, which normally only
 # happens when we create a version release.
-git clone -b development https://github.com/ninjacoin/ninjacoin $sourcefolder
+git clone -b development https://github.com/NinjaCoin/NinjaCoin $sourcefolder
 cd $sourcefolder
 ls -al
 
@@ -56,11 +56,11 @@ ls -al
 # distribution. We should also include the LICENSE file in this 
 # zip file just in case.
 echo -e "\n\n\n== COMPRESSING BINARIES"
-wget https://raw.githubusercontent.com/ninjacoin/ninjacoin/development/LICENSE
-zip ninjacoin-dev-bin-$(date +%F)-linux.zip miner LICENSE zedwallet NinjaCoind ninja-service
+wget https://raw.githubusercontent.com/NinjaCoin/NinjaCoin/development/LICENSE
+zip NinjaCoin-dev-bin-$(date +%F)-linux.zip miner LICENSE zedwallet NinjaCoind ninja-service
 
 # Create directories to keep always-up-to-date binaries for 
-# NINJA Network files. Ideally, your bashrc has aliases to run
+# TRTL Network files. Ideally, your bashrc has aliases to run
 # from this folder, or you can add it to your $PATH.
 mkdir -p ~/.Crypto/{Athena,NinjaCoin,Karai}
 mkdir ~/Binaries

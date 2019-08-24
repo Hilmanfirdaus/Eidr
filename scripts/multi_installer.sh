@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Ninjacoin Multi-installer
-# a one line clone-and-compile for ninjacoin:
+# NinjaCoin Multi-installer
+# a one line clone-and-compile for NinjaCoin:
 #
-#     ` $ curl -sL "https://raw.githubusercontent.com/ninjacoin/ninjacoin/master/scripts/multi_installer.sh" | bash
+#     ` $ curl -sL "https://raw.githubusercontent.com/NinjaCoin/NinjaCoin/master/scripts/multi_installer.sh" | bash
 #
 # Supports Ubuntu 16.04 LTS, OSX 10.10+
 # Supports building project from current directory (automatic detection)
@@ -41,26 +41,26 @@ _set_wd() {
         _note "Building project from current working directory ($PWD)"
     else
         _note "Cloning project with git..."
-        if [ -d "$PWD"/ninjacoin ]; then
-            read -r -p "${1:-ninjacoin directory already exists. Overwrite? [y/N]} " response
+        if [ -d "$PWD"/NinjaCoin ]; then
+            read -r -p "${1:-NinjaCoin directory already exists. Overwrite? [y/N]} " response
             case "$response" in
                 [yY][eE][sS|[yY])
-                    _colorize red "Overwriting old ninjacoin directory" && echo
-                    rm -rf "$PWD"/ninjacoin
+                    _colorize red "Overwriting old NinjaCoin directory" && echo
+                    rm -rf "$PWD"/NinjaCoin
                     ;;
                 *)
-                    _fail "ninjacoin directory already exists. Aborting..."
+                    _fail "NinjaCoin directory already exists. Aborting..."
                     ;;
             esac
         fi
-        mkdir ninjacoin
-        git clone -b master -q https://github.com/ninjacoin/ninjacoin ninjacoin   >>build.log 2>&1 || _fail "Unable to clone git repository. Please see build.log for more information"
-        cd ninjacoin
+        mkdir NinjaCoin
+        git clone -b master -q https://github.com/NinjaCoin/NinjaCoin NinjaCoin   >>build.log 2>&1 || _fail "Unable to clone git repository. Please see build.log for more information"
+        cd NinjaCoin
     fi
 }
 
-_build_ninjacoin() {
-    _note "Building ninjacoin from source (this might take a while)..."
+_build_NinjaCoin() {
+    _note "Building NinjaCoin from source (this might take a while)..."
     if [ -d build ]; then
         _colorize red "Overwriting old build directory" && echo
         rm -rf build
@@ -109,7 +109,7 @@ _configure_linux() {
     elif [ "$(awk -F= '/^NAME/{print $2}' /etc/os-release)" = "\"Debian GNU/Linux\"" ]; then
         _configure_debian
     else
-        _fail "Your OS version isn't supported by this installer. Please consider adding support for your OS to the project ('https://github.com/ninjacoin')"
+        _fail "Your OS version isn't supported by this installer. Please consider adding support for your OS to the project ('https://github.com/NinjaCoin')"
     fi
 }
 
@@ -138,19 +138,19 @@ _configure_os() {
             _configure_osx
             ;;
         *)
-            _fail "This installer only runs on OSX 10.10+ and Ubuntu 16.04+. Please consider adding support for your OS to the project ('https://github.com/ninjacoin')"
+            _fail "This installer only runs on OSX 10.10+ and Ubuntu 16.04+. Please consider adding support for your OS to the project ('https://github.com/NinjaCoin')"
             ;;
     esac
     _note "Operating system configuration completed. You're halfway there!"
 }
 
-_note "Ninjacoin Multi_Installer v1.0 (pepperoni)"
+_note "NinjaCoin Multi_Installer v1.0 (pepperoni)"
 _colorize green " _______         _   _       _____      _       \n|__   __|       | | | |     / ____|    (_)      \n   | |_   _ _ __| |_| | ___| |     ___  _ _ __  \n   | | | | | '__| __| |/ _ \ |    / _ \| | '_ \ \n   | | |_| | |  | |_| |  __/ |___| (_) | | | | |\n   |_|\__,_|_|   \__|_|\___|\_____\___/|_|_| |_|\n" && echo
 
 _configure_os
 
 _set_wd
-_build_ninjacoin
+_build_NinjaCoin
 
 _note "Installation complete!"
-_note "Look in 'ninjacoin/build/src/' for the executible binaries. See 'https://github.com/ninjacoin/ninjacoin' for more project support. Cowabunga!"
+_note "Look in 'NinjaCoin/build/src/' for the executible binaries. See 'https://github.com/NinjaCoin/NinjaCoin' for more project support. Cowabunga!"
