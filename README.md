@@ -1,9 +1,5 @@
 ![ninja256x256](https://user-images.githubusercontent.com/47786795/63031248-03e15300-beb4-11e9-95fc-444a5010d5c8.png)
 
-#### Master Build Status
-[![Build Status](https://travis-ci.org/ninjacoin-master/ninjacoin.svg?branch=master)]
-[![Build status](https://ci.appveyor.com/api/projects/status/github/ninjacoin-master/ninjacoin?branch=master&svg=true)]
-
 ### Installing
 
 If you would like to compile yourself, read on.
