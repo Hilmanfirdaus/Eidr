@@ -316,7 +316,7 @@ namespace CryptoNote
     const char P2P_STAT_TRUSTED_PUB_KEY[] = "";
 
     const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 256; // 256 MB
-    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 64; // 64MB
+    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 64; // 64 MB
     const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 500; // 500 files
     const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT = 4; // 4 DB threads
 
