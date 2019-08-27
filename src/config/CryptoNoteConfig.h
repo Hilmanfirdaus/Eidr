@@ -201,7 +201,7 @@ namespace CryptoNote
 
         /* This value is here to handle the difficult reset needed for the PoW upgrade
            at block major version V6 */
-        const uint64_t DIFFICULTY_RESET_HEIGHT_V1 = UPGRADE_HEIGHT_V6;
+        const uint64_t DIFFICULTY_RESET_HEIGHT_V1 = static_cast<uint64_t>(-1);
         const float DIFFICULTY_RESET_MULTIPLIER_V1 = 0.1;
         const uint64_t DIFFICULTY_RESET_WINDOW_V1 = DIFFICULTY_BLOCKS_COUNT_V3;
 
@@ -289,9 +289,9 @@ namespace CryptoNote
 
     // P2P Network Configuration Section - This defines our current P2P network version
     // and the minimum version for communication between nodes
-    const uint8_t P2P_CURRENT_VERSION = 6;
+    const uint8_t P2P_CURRENT_VERSION = 7;
 
-    const uint8_t P2P_MINIMUM_VERSION = 5;
+    const uint8_t P2P_MINIMUM_VERSION = 7;
 
     // This defines the minimum P2P version required for lite blocks propogation
     const uint8_t P2P_LITE_BLOCKS_PROPOGATION_VERSION = 4;
