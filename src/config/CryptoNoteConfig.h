@@ -291,7 +291,7 @@ namespace CryptoNote
     // and the minimum version for communication between nodes
     const uint8_t P2P_CURRENT_VERSION = 7;
 
-    const uint8_t P2P_MINIMUM_VERSION = 5;
+    const uint8_t P2P_MINIMUM_VERSION = 7;
 
     // This defines the minimum P2P version required for lite blocks propogation
     const uint8_t P2P_LITE_BLOCKS_PROPOGATION_VERSION = 4;
