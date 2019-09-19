@@ -12,6 +12,7 @@
 #include <errors/ValidateParameters.h>
 #include <logger/Logger.h>
 #include <utilities/Utilities.h>
+#include <version.h>
 
 using json = nlohmann::json;
 
@@ -58,6 +59,10 @@ Nigel::Nigel(
     m_daemonPort(daemonPort),
     m_daemonSSL(daemonSSL)
 {
+    std::stringstream userAgent;
+    userAgent << "Nigel/" << PROJECT_VERSION_LONG;
+
+    m_requestHeaders = {{"User-Agent", userAgent.str()}};
     m_nodeClient = getClient(m_daemonHost, m_daemonPort, m_daemonSSL, m_timeout);
 }
 
@@ -121,7 +126,7 @@ std::tuple<bool, std::vector<WalletTypes::WalletBlockInfo>, std::optional<Wallet
               {"blockCount", m_blockCount.load()},
               {"skipCoinbaseTransactions", skipCoinbaseTransactions}};
 
-    auto res = m_nodeClient->Post("/getwalletsyncdata", j.dump(), "application/json");
+    auto res = m_nodeClient->Post("/getwalletsyncdata", m_requestHeaders, j.dump(), "application/json");
 
     if (res && res->status == 200)
     {
@@ -184,7 +189,7 @@ bool Nigel::getDaemonInfo()
 {
     Logger::logger.log("Updating daemon info", Logger::DEBUG, {Logger::SYNC, Logger::DAEMON});
 
-    auto res = m_nodeClient->Get("/info");
+    auto res = m_nodeClient->Get("/info", m_requestHeaders);
 
     if (res && res->status == 200)
     {
@@ -238,7 +243,7 @@ bool Nigel::getFeeInfo()
 {
     Logger::logger.log("Fetching fee info", Logger::DEBUG, {Logger::DAEMON});
 
-    auto res = m_nodeClient->Get("/fee");
+    auto res = m_nodeClient->Get("/fee", m_requestHeaders);
 
     if (res && res->status == 200)
     {
@@ -325,7 +330,7 @@ bool Nigel::getTransactionsStatus(
 {
     json j = {{"transactionHashes", transactionHashes}};
 
-    auto res = m_nodeClient->Post("/get_transactions_status", j.dump(), "application/json");
+    auto res = m_nodeClient->Post("/get_transactions_status", m_requestHeaders, j.dump(), "application/json");
 
     if (res && res->status == 200)
     {
@@ -365,7 +370,7 @@ std::tuple<bool, std::vector<CryptoNote::RandomOuts>>
 
         /* We also need to handle the request and response a bit
            differently so we'll do this here */
-        auto res = m_nodeClient->Post("/randomOutputs", j.dump(), "application/json");
+        auto res = m_nodeClient->Post("/randomOutputs", m_requestHeaders, j.dump(), "application/json");
 
         if (res && res->status == 200)
         {
@@ -384,7 +389,7 @@ std::tuple<bool, std::vector<CryptoNote::RandomOuts>>
     }
     else
     {
-        auto res = m_nodeClient->Post("/getrandom_outs", j.dump(), "application/json");
+        auto res = m_nodeClient->Post("/getrandom_outs", m_requestHeaders, j.dump(), "application/json");
 
         if (res && res->status == 200)
         {
@@ -414,7 +419,7 @@ std::tuple<bool, bool> Nigel::sendTransaction(const CryptoNote::Transaction tx) 
 {
     json j = {{"tx_as_hex", Common::toHex(CryptoNote::toBinaryArray(tx))}};
 
-    auto res = m_nodeClient->Post("/sendrawtransaction", j.dump(), "application/json");
+    auto res = m_nodeClient->Post("/sendrawtransaction", m_requestHeaders, j.dump(), "application/json");
 
     bool success = false;
     bool connectionError = true;
@@ -450,7 +455,7 @@ std::tuple<bool, std::unordered_map<Crypto::Hash, std::vector<uint64_t>>>
 
     json j = {{"startHeight", startHeight}, {"endHeight", endHeight}};
 
-    auto res = m_nodeClient->Post("/get_global_indexes_for_range", j.dump(), "application/json");
+    auto res = m_nodeClient->Post("/get_global_indexes_for_range", m_requestHeaders, j.dump(), "application/json");
 
     if (res && res->status == 200)
     {

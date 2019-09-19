@@ -102,6 +102,9 @@ class Nigel
        and making our functions non const) */
     std::shared_ptr<httplib::Client> m_nodeClient = nullptr;
 
+    /* Stores the HTTP headers included in all Nigel requests */
+    httplib::Headers m_requestHeaders;
+
     /* Runs a background refresh on height, hashrate, etc */
     std::thread m_backgroundThread;
 
@@ -124,7 +127,7 @@ class Nigel
     std::atomic<uint64_t> m_lastKnownHashrate = 0;
 
     /* Whether the daemon is a blockchain cache API
-       see: https://github.com/NinjaPay/blockchain-cache-api */
+       see: https://github.com/TurtlePay/blockchain-cache-api */
     std::atomic<bool> m_isBlockchainCache = false;
 
     /* The address to send the node fee to (May be "") */

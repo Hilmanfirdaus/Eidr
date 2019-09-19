@@ -1,6 +1,5 @@
-// Portions Copyright (c) 2019 Galaxia Project Developers
-// Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
+// Portions Copyright (c) 2018-2019 Galaxia Project Developers
+// Copyright (c) 2019, The TurtleCoin Developers
 //
 // Please see the included LICENSE file for more information.
 

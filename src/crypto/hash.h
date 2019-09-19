@@ -28,7 +28,7 @@
 #define CN_DARK_SCRATCHPAD 524288
 #define CN_DARK_ITERATIONS 262144
 
-// Standard CryptoNight Ninja
+// Standard CryptoNight Turtle
 #define CN_TURTLE_PAGE_SIZE 262144
 #define CN_TURTLE_SCRATCHPAD 262144
 #define CN_TURTLE_ITERATIONS 131072
@@ -226,8 +226,8 @@ namespace Crypto
             CN_DARK_ITERATIONS);
     }
 
-    // Standard CryptoNight Ninja
-    inline void cn_ninja_slow_hash_v0(const void *data, size_t length, Hash &hash)
+    // Standard CryptoNight Turtle
+    inline void cn_turtle_slow_hash_v0(const void *data, size_t length, Hash &hash)
     {
         cn_slow_hash(
             data,
@@ -241,7 +241,7 @@ namespace Crypto
             CN_TURTLE_ITERATIONS);
     }
 
-    inline void cn_ninja_slow_hash_v1(const void *data, size_t length, Hash &hash)
+    inline void cn_turtle_slow_hash_v1(const void *data, size_t length, Hash &hash)
     {
         cn_slow_hash(
             data,
@@ -255,7 +255,7 @@ namespace Crypto
             CN_TURTLE_ITERATIONS);
     }
 
-    inline void cn_ninja_slow_hash_v2(const void *data, size_t length, Hash &hash)
+    inline void cn_turtle_slow_hash_v2(const void *data, size_t length, Hash &hash)
     {
         cn_slow_hash(
             data,
@@ -269,8 +269,8 @@ namespace Crypto
             CN_TURTLE_ITERATIONS);
     }
 
-    // Standard CryptoNight Ninja Lite
-    inline void cn_ninja_lite_slow_hash_v0(const void *data, size_t length, Hash &hash)
+    // Standard CryptoNight Turtle Lite
+    inline void cn_turtle_lite_slow_hash_v0(const void *data, size_t length, Hash &hash)
     {
         cn_slow_hash(
             data,
@@ -284,7 +284,7 @@ namespace Crypto
             CN_TURTLE_ITERATIONS);
     }
 
-    inline void cn_ninja_lite_slow_hash_v1(const void *data, size_t length, Hash &hash)
+    inline void cn_turtle_lite_slow_hash_v1(const void *data, size_t length, Hash &hash)
     {
         cn_slow_hash(
             data,
@@ -298,7 +298,7 @@ namespace Crypto
             CN_TURTLE_ITERATIONS);
     }
 
-    inline void cn_ninja_lite_slow_hash_v2(const void *data, size_t length, Hash &hash)
+    inline void cn_turtle_lite_slow_hash_v2(const void *data, size_t length, Hash &hash)
     {
         cn_slow_hash(
             data,

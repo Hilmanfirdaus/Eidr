@@ -1,8 +1,9 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2014-2018, The Monero Project
-// Copyright (c) 2018, The TurtleCoin Developers
+// Copyright (c) 2018-2019, The TurtleCoin Developers
 // Copyright (c) 2019, The NinjaCoin Developers
-//
+// Copyright (c) 2019, The NinjaCoin Developers
+// 
 // Please see the included LICENSE file for more information.
 
 #pragma once
@@ -94,20 +95,20 @@ namespace CryptoNote
 
         const uint64_t MAXIMUM_MIXIN_V1 = 3;
 
-        const uint64_t MINIMUM_MIXIN_V2 = 3;
+        const uint64_t MINIMUM_MIXIN_V2 = 0;
 
         const uint64_t MAXIMUM_MIXIN_V2 = 3;
 
-        const uint64_t MINIMUM_MIXIN_V3 = 3;
+        const uint64_t MINIMUM_MIXIN_V3 = 0;
 
         const uint64_t MAXIMUM_MIXIN_V3 = 3;
 
         /* The heights to activate the mixin limits at */
         const uint32_t MIXIN_LIMITS_V1_HEIGHT = 440000;
 
-        const uint32_t MIXIN_LIMITS_V2_HEIGHT = 620000;
+        const uint32_t MIXIN_LIMITS_V2_HEIGHT = 471000;
 
-        const uint32_t MIXIN_LIMITS_V3_HEIGHT = 800000;
+        const uint32_t MIXIN_LIMITS_V3_HEIGHT = 472000;
 
         /* The mixin to use by default with zedwallet and ninja-service */
         /* DEFAULT_MIXIN_V0 is the mixin used before MIXIN_LIMITS_V1_HEIGHT is started */
@@ -125,7 +126,7 @@ namespace CryptoNote
 
         const uint32_t DUST_THRESHOLD_V2_HEIGHT = MIXIN_LIMITS_V2_HEIGHT;
 
-        const uint32_t FUSION_DUST_THRESHOLD_HEIGHT_V2 = 800000;
+        const uint32_t FUSION_DUST_THRESHOLD_HEIGHT_V2 = 472000;
 
         const uint64_t EXPECTED_NUMBER_OF_BLOCKS_PER_DAY = 24 * 60 * 60 / DIFFICULTY_TARGET;
 
@@ -202,7 +203,7 @@ namespace CryptoNote
 
         /* This value is here to handle the difficult reset needed for the PoW upgrade
            at block major version V6 */
-        const uint64_t DIFFICULTY_RESET_HEIGHT_V1 = static_cast<uint64_t>(-1);
+        const uint64_t DIFFICULTY_RESET_HEIGHT_V1 = UPGRADE_HEIGHT_V6;
         const float DIFFICULTY_RESET_MULTIPLIER_V1 = 0.1;
         const uint64_t DIFFICULTY_RESET_WINDOW_V1 = DIFFICULTY_BLOCKS_COUNT_V3;
 
@@ -217,7 +218,6 @@ namespace CryptoNote
             187000, // 0
             350000, // 1
             400000, // 2
-
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
@@ -317,8 +317,8 @@ namespace CryptoNote
     const char P2P_STAT_TRUSTED_PUB_KEY[] = "";
 
     const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 256; // 256 MB
-    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 64; // 64 MB
-    const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 500; // 500 files
+    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 128; // 128 MB
+    const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 125; // 125 files
     const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT = 4; // 4 DB threads
 
     const char LATEST_VERSION_URL[] = "https://github.com/NinjaCoin-Master/NinjaCoin/releases/latest";

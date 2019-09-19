@@ -18,7 +18,7 @@
 #include <iostream>
 #include <utilities/Addresses.h>
 #include <utilities/ColouredMsg.h>
-#include <zedwallet/PasswordContainer.h>
+#include <utilities/PasswordContainer.h>
 
 void confirmPassword(const std::string &walletPass, const std::string &msg)
 {
@@ -63,7 +63,7 @@ std::string formatDollars(const uint64_t amount)
     /* We want to format our number with comma separators so it's easier to
        use. Now, we could use the nice print_money() function to do this.
        However, whilst this initially looks pretty handy, if we have a locale
-       such as ja_JP.utf8, 1 NINJA will actually be formatted as 100 NINJA, which
+       such as ja_JP.utf8, 1 TRTL will actually be formatted as 100 TRTL, which
        is terrible, and could really screw over users.
 
        So, easy solution right? Just use en_US.utf8! Sure, it's not very
@@ -276,7 +276,7 @@ bool shutdown(std::shared_ptr<WalletInfo> walletInfo, CryptoNote::INode &node, b
 {
     if (alreadyShuttingDown)
     {
-        std::cout << "Patience little ninja, we're already shutting down!" << std::endl;
+        std::cout << "Patience little turtle, we're already shutting down!" << std::endl;
 
         return false;
     }

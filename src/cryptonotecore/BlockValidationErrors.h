@@ -1,7 +1,7 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2018-2019, The TurtleCoin Developers
 // Copyright (c) 2019, The NinjaCoin Developers
-// Copyright (c) 2019 Galaxia Project Developers
+// Copyright (c) 2018-2019 Galaxia Project Developers
 //
 // Please see the included LICENSE file for more information.
 

@@ -8,7 +8,7 @@ BUILD_DIRECTORY=$2
 function usage()
 {
     echo "This script builds the dynamically and statically linked version"
-    echo "and generates the checksum files of the NinjaCoin tag provided."
+    echo "and generates the checksum files of the TurtleCoin tag provided."
     echo
     echo "USAGE: $0 <tag> <build-directory>"
     echo
@@ -115,11 +115,11 @@ then
 fi
 
 # -- Config
-GITHUB_REPO="https://github.com/NinjaCoin/NinjaCoin.git"
-CLONE_DIR="$BUILD_DIRECTORY/NinjaCoin-buildall"
-TARGET_DIR="$BUILD_DIRECTORY/NinjaCoin-releases"
-DYNAMIC_RELEASE="NinjaCoin-${TAG_VERSION}-linux-CLI"
-STATIC_RELEASE="NinjaCoin-${TAG_VERSION}-linux-staticboost-CLI"
+GITHUB_REPO="https://github.com/turtlecoin/turtlecoin.git"
+CLONE_DIR="$BUILD_DIRECTORY/turtlecoin-buildall"
+TARGET_DIR="$BUILD_DIRECTORY/turtlecoin-releases"
+DYNAMIC_RELEASE="turtlecoin-${TAG_VERSION}-linux-CLI"
+STATIC_RELEASE="turtlecoin-${TAG_VERSION}-linux-staticboost-CLI"
 
 checkout_tag
 build_static_linked_version

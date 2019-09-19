@@ -1,6 +1,6 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2014-2018, The Monero Project
-// Copyright (c) 2019, The Galaxia Project Developers
+// Copyright (c) 2018-2019, The Galaxia Project Developers
 // Copyright (c) 2018-2019, The TurtleCoin Developers
 // Copyright (c) 2019, The NinjaCoin Developers
 //
@@ -34,6 +34,7 @@
 #include <unordered_set>
 #include <utilities/Container.h>
 #include <utilities/FormatTools.h>
+#include <utilities/LicenseCanary.h>
 #include <utilities/ParseExtra.h>
 
 using namespace Crypto;
@@ -1091,8 +1092,8 @@ namespace CryptoNote
             return error::BlockValidationError::DIFFICULTY_OVERHEAD;
         }
 
-        // Copyright (c) 2019, The Galaxia Project Developers
-        // See https://github.com/NinjaCoin/NinjaCoin/issues/748 for more information
+        // Copyright (c) 2018-2019, The Galaxia Project Developers
+        // See https://github.com/turtlecoin/turtlecoin/issues/748 for more information
         if (blockIndex >= CryptoNote::parameters::BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT)
         {
             /* Check to verify that the blocktemplate suppied contains no duplicate transaction hashes */
@@ -1212,7 +1213,7 @@ namespace CryptoNote
         }
         else if (!currency.checkProofOfWork(cachedBlock, currentDifficulty))
         {
-            logger(Logging::WARNING) << "Proof of work too weak for block " << blockStr;
+            logger(Logging::DEBUGGING) << "Proof of work too weak for block " << blockStr;
             return error::BlockValidationError::PROOF_OF_WORK_TOO_WEAK;
         }
 

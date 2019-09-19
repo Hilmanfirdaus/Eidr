@@ -1,4 +1,5 @@
 // Copyright (c) 2018, The TurtleCoin Developers
+// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -355,15 +356,15 @@ int main(int argc, char **argv)
 
         std::cout << std::endl;
 
-        TEST_HASH_FUNCTION(cn_ninja_slow_hash_v0, CN_TURTLE_SLOW_HASH_V0);
-        TEST_HASH_FUNCTION(cn_ninja_slow_hash_v1, CN_TURTLE_SLOW_HASH_V1);
-        TEST_HASH_FUNCTION(cn_ninja_slow_hash_v2, CN_TURTLE_SLOW_HASH_V2);
+        TEST_HASH_FUNCTION(cn_turtle_slow_hash_v0, CN_TURTLE_SLOW_HASH_V0);
+        TEST_HASH_FUNCTION(cn_turtle_slow_hash_v1, CN_TURTLE_SLOW_HASH_V1);
+        TEST_HASH_FUNCTION(cn_turtle_slow_hash_v2, CN_TURTLE_SLOW_HASH_V2);
 
         std::cout << std::endl;
 
-        TEST_HASH_FUNCTION(cn_ninja_lite_slow_hash_v0, CN_TURTLE_LITE_SLOW_HASH_V0);
-        TEST_HASH_FUNCTION(cn_ninja_lite_slow_hash_v1, CN_TURTLE_LITE_SLOW_HASH_V1);
-        TEST_HASH_FUNCTION(cn_ninja_lite_slow_hash_v2, CN_TURTLE_LITE_SLOW_HASH_V2);
+        TEST_HASH_FUNCTION(cn_turtle_lite_slow_hash_v0, CN_TURTLE_LITE_SLOW_HASH_V0);
+        TEST_HASH_FUNCTION(cn_turtle_lite_slow_hash_v1, CN_TURTLE_LITE_SLOW_HASH_V1);
+        TEST_HASH_FUNCTION(cn_turtle_lite_slow_hash_v2, CN_TURTLE_LITE_SLOW_HASH_V2);
 
         std::cout << std::endl;
 
@@ -413,13 +414,13 @@ int main(int argc, char **argv)
             BENCHMARK(cn_dark_lite_slow_hash_v1, o_iterations);
             BENCHMARK(cn_dark_lite_slow_hash_v2, o_iterations);
 
-            BENCHMARK(cn_ninja_slow_hash_v0, o_iterations_long);
-            BENCHMARK(cn_ninja_slow_hash_v1, o_iterations_long);
-            BENCHMARK(cn_ninja_slow_hash_v2, o_iterations_long);
+            BENCHMARK(cn_turtle_slow_hash_v0, o_iterations_long);
+            BENCHMARK(cn_turtle_slow_hash_v1, o_iterations_long);
+            BENCHMARK(cn_turtle_slow_hash_v2, o_iterations_long);
 
-            BENCHMARK(cn_ninja_lite_slow_hash_v0, o_iterations_long);
-            BENCHMARK(cn_ninja_lite_slow_hash_v1, o_iterations_long);
-            BENCHMARK(cn_ninja_lite_slow_hash_v2, o_iterations_long);
+            BENCHMARK(cn_turtle_lite_slow_hash_v0, o_iterations_long);
+            BENCHMARK(cn_turtle_lite_slow_hash_v1, o_iterations_long);
+            BENCHMARK(cn_turtle_lite_slow_hash_v2, o_iterations_long);
 
             BENCHMARK(chukwa_slow_hash, o_iterations_long);
         }
