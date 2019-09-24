@@ -317,8 +317,8 @@ namespace CryptoNote
     const char P2P_STAT_TRUSTED_PUB_KEY[] = "";
 
     const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 256; // 256 MB
-    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 128; // 128 MB
-    const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 125; // 125 files
+    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 64; // 128 MB
+    const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 50; // 125 files
     const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT = 4; // 4 DB threads
 
     const char LATEST_VERSION_URL[] = "https://github.com/NinjaCoin-Master/NinjaCoin/releases/latest";
