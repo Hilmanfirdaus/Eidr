@@ -1,4 +1,4 @@
-![ninja256x256](https://user-images.githubusercontent.com/47786795/63031248-03e15300-beb4-11e9-95fc-444a5010d5c8.png=256x256)
+![ninja256x256](https://user-images.githubusercontent.com/47786795/63031248-03e15300-beb4-11e9-95fc-444a5010d5c8.png =256x256)
 
 ### Installing
 
