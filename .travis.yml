@@ -120,7 +120,7 @@ before_deploy:
 - rm -rf ninjacoin-${TRAVIS_TAG}
 - mkdir ninjacoin-${TRAVIS_TAG}
 - cp ${TARGETS} ninjacoin-${TRAVIS_TAG}/
-- cp ../../LICENSE turtlecoin-${TRAVIS_TAG}/
+- cp ../../LICENSE ninjacoin-${TRAVIS_TAG}/
 - tar cvfz ninjacoin-${TRAVIS_TAG}-${LABEL}.tar.gz ninjacoin-${TRAVIS_TAG}/
 - rm -rf builds
 - mkdir builds
