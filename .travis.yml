@@ -117,14 +117,14 @@ before_deploy:
 - cd src
 - TARGETS="NinjaCoind miner zedwallet ninja-service zedwallet-beta cryptotest wallet-api wallet-upgrader"
 - ${STRIP} ${TARGETS}
-- rm -rf turtlecoin-${TRAVIS_TAG}
-- mkdir turtlecoin-${TRAVIS_TAG}
-- cp ${TARGETS} turtlecoin-${TRAVIS_TAG}/
+- rm -rf ninjacoin-${TRAVIS_TAG}
+- mkdir ninjacoin-${TRAVIS_TAG}
+- cp ${TARGETS} ninjacoin-${TRAVIS_TAG}/
 - cp ../../LICENSE turtlecoin-${TRAVIS_TAG}/
-- tar cvfz turtlecoin-${TRAVIS_TAG}-${LABEL}.tar.gz turtlecoin-${TRAVIS_TAG}/
+- tar cvfz ninjacoin-${TRAVIS_TAG}-${LABEL}.tar.gz ninjacoin-${TRAVIS_TAG}/
 - rm -rf builds
 - mkdir builds
-- cp turtlecoin-${TRAVIS_TAG}-${LABEL}.tar.gz builds
+- cp ninjacoin-${TRAVIS_TAG}-${LABEL}.tar.gz builds
 - cd ..
 
 deploy:
@@ -132,7 +132,7 @@ deploy:
     api_key:
       secure: XyM7qAnX9Slm4bX7WYPOnWGRuXfuwc7wnJHb7wN4WGy+GefXm3xSFoNIZdmTY1XnJ2HpIAXuuHL2aey8KKt+gEXbhp882z6m9jZWOdog3cjObdRCsOuETNE0rbXasDvntdhm1Jn7PM+mkN6O9GoqRVaEnyyIwCGEFA7Cc/d2KgtqpTu0NB6nIPZbTgJnudHDQYEWl0kwA1UjkYrEIRlAOFTaRHBUsUHPTFW8758mgerYitLm27BNJTbo74lYe65iExtguKFN/VRVXDl08/2i3gnAxzWJ2K0qUZu7PD8ePd+2UC1wwE2Dc1uiTOmhDgVeuQO6k0tuipjIA+dh5r7A8/YPyOX4zoZ4ac+g1mWSRO1VS/WQ2Uvq2XU848KACLJ+ky3kHWZKowTSl/v3+3rU4c6kqYJHShkH5XlFp503yRqlaqOow4ogz020eIEHEFCgwLhNxZSEUzKP4rEZPpboZyNJbW7lL92UxMZDZm1zKMvnrY5zi2HltYzIQyOjDvmXUxQD8blz1C66lqfBc6mApjDRZVLUcfTT4WIGAWc6opTYJAJpCg34zGAQgXoFaOG0cH3ApsREmBd1dg9d8cJscedy9qZjn3HsmibmdRiGctB5o08JrjfM5sZVk620iKFgovis7q7XfIKb3rQdSfsiRwsfZEwhE2lvY3bf9B0VMrU=
     file:
-      - turtlecoin-${TRAVIS_TAG}-${LABEL}.tar.gz
+      - ninjacoin-${TRAVIS_TAG}-${LABEL}.tar.gz
     skip_cleanup: true
     on:
       repo: ninjacoin-master/ninjacoin
