@@ -2,7 +2,7 @@
 #define STR(x) STR_HELPER(x)
 
 #define PROJECT_NAME "NinjaCoin"
-#define PROJECT_SITE "http://www.ninjacoin.org
+#define PROJECT_SITE "http://www.ninjacoin.org"
 #define PROJECT_COPYRIGHT "Copyright 2019-2020, The NinjaCoin Developers"
 #define APP_VER_MAJOR 2
 #define APP_VER_MINOR 0
