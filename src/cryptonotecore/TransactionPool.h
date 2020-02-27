@@ -1,6 +1,5 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -34,6 +33,8 @@ namespace CryptoNote
 
         virtual bool removeTransaction(const Crypto::Hash &hash) override;
 
+        virtual size_t getFusionTransactionCount() const override;
+
         virtual size_t getTransactionCount() const override;
 
         virtual std::vector<Crypto::Hash> getTransactionHashes() const override;
@@ -50,6 +51,8 @@ namespace CryptoNote
         virtual uint64_t getTransactionReceiveTime(const Crypto::Hash &hash) const override;
 
         virtual std::vector<Crypto::Hash> getTransactionHashesByPaymentId(const Crypto::Hash &paymentId) const override;
+
+        virtual void flush() override;
 
       private:
         TransactionValidatorState poolState;

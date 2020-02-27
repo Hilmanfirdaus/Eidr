@@ -1,6 +1,5 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -37,7 +36,11 @@ namespace CryptoNote
 
     RawBlock SwappedBlockchainStorage::getBlockByIndex(uint32_t index) const
     {
-        assert(index < getBlockCount());
+        if (index >= getBlockCount())
+        {
+            throw std::out_of_range("SwappedBlockchainStorage, index < blockCount!");
+        }
+
         return blocks[index];
     }
 

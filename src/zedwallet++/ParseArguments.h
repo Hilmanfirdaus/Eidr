@@ -1,5 +1,4 @@
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -29,7 +28,7 @@ struct ZedConfig
     std::string walletPass;
 
     /* Controls what level of messages to log */
-    Logger::LogLevel logLevel = Logger::DISABLED;
+    Logger::LogLevel logLevel = Logger::FATAL;
 
     /* Use SSL with daemon */
     bool ssl = false;

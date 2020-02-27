@@ -1,14 +1,13 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
 #include "MainChainStorage.h"
 
 #include "common/CryptoNoteTools.h"
-
-#include <boost/filesystem.hpp>
+#include "common/FileSystemShim.h"
+#include <sstream>
 
 namespace CryptoNote
 {
@@ -54,7 +53,26 @@ namespace CryptoNote
                 + " is out of range. Blocks count: " + std::to_string(storage.size()));
         }
 
-        return storage[index];
+        try
+        {
+            return storage[index];
+        }
+        catch (std::exception &)
+        {
+            /* Intercept the exception here and display a friendly help message */
+            std::stringstream errorMessage;
+
+            errorMessage << "Local blockchain cache corruption detected." << std::endl
+                         << "Block with index " << std::to_string(index)
+                         << " could not be deserialized from the blockchain cache."
+                         << std::endl << std::endl
+                         << "Please try to repair this issue by starting the node with the option: "
+                         << "--rewind-to-height " << std::to_string(index - 1) << std::endl
+                         << "If the above does not repair the issue, "
+                         << "please launch the node with the option: --resync" << std::endl;
+
+            throw std::runtime_error(errorMessage.str());
+        }
     }
 
     uint32_t MainChainStorage::getBlockCount() const
@@ -70,8 +88,8 @@ namespace CryptoNote
     std::unique_ptr<IMainChainStorage>
         createSwappedMainChainStorage(const std::string &dataDir, const Currency &currency)
     {
-        boost::filesystem::path blocksFilename = boost::filesystem::path(dataDir) / currency.blocksFileName();
-        boost::filesystem::path indexesFilename = boost::filesystem::path(dataDir) / currency.blockIndexesFileName();
+        fs::path blocksFilename = fs::path(dataDir) / currency.blocksFileName();
+        fs::path indexesFilename = fs::path(dataDir) / currency.blockIndexesFileName();
 
         std::unique_ptr<IMainChainStorage> storage(
             new MainChainStorage(blocksFilename.string(), indexesFilename.string()));

@@ -1,7 +1,6 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2014-2018, The Monero Project
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -12,6 +11,7 @@
 #include "CryptoNote.h"
 #include "common/Base58.h"
 #include "common/CryptoNoteTools.h"
+#include "common/FileSystemShim.h"
 #include "common/TransactionExtra.h"
 #include "common/Util.h"
 #include "crypto/crypto.h"
@@ -20,7 +20,6 @@
 #include "cryptonotecore/Mixins.h"
 
 #include <assert.h>
-#include <boost/filesystem/operations.hpp>
 #include <future>
 #include <mnemonics/Mnemonics.h>
 #include <sstream>
@@ -677,8 +676,8 @@ namespace PaymentService
                 return make_error_code(CryptoNote::error::NOT_INITIALIZED);
             }
 
-            boost::filesystem::path walletPath(config.walletFile);
-            boost::filesystem::path exportPath = walletPath.parent_path() / fileName;
+            fs::path walletPath(config.walletFile);
+            fs::path exportPath = walletPath.parent_path() / fileName;
 
             logger(Logging::INFO, Logging::BRIGHT_WHITE) << "Exporting wallet to " << exportPath.string();
             wallet.exportWallet(exportPath.string());
@@ -1220,7 +1219,7 @@ namespace PaymentService
         return std::error_code();
     }
 
-    std::error_code WalletService::sendTransaction(SendTransaction::Request &request, std::string &transactionHash)
+    std::error_code WalletService::sendTransaction(SendTransaction::Request &request, std::string &transactionHash, uint64_t &fee)
     {
         try
         {
@@ -1310,7 +1309,11 @@ namespace PaymentService
             sendParams.changeDestination = request.changeAddress;
 
             size_t transactionId = wallet.transfer(sendParams);
-            transactionHash = Common::podToHex(wallet.getTransaction(transactionId).hash);
+            const auto tx = wallet.getTransaction(transactionId);
+
+            /* Set output parameters */
+            transactionHash = Common::podToHex(tx.hash);
+            fee = tx.fee;
 
             logger(Logging::DEBUGGING) << "Transaction " << transactionHash << " has been sent";
         }
@@ -1330,7 +1333,8 @@ namespace PaymentService
 
     std::error_code WalletService::createDelayedTransaction(
         CreateDelayedTransaction::Request &request,
-        std::string &transactionHash)
+        std::string &transactionHash,
+        uint64_t &fee)
     {
         try
         {
@@ -1412,7 +1416,12 @@ namespace PaymentService
             sendParams.changeDestination = request.changeAddress;
 
             size_t transactionId = wallet.makeTransaction(sendParams);
-            transactionHash = Common::podToHex(wallet.getTransaction(transactionId).hash);
+
+            const auto tx = wallet.getTransaction(transactionId);
+
+            /* Set output parameters */
+            transactionHash = Common::podToHex(tx.hash);
+            fee = tx.fee;
 
             logger(Logging::DEBUGGING) << "Delayed transaction " << transactionHash << " has been created";
         }

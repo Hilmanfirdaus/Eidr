@@ -1,5 +1,4 @@
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 // Copyright (c) 2019, The CyprusCoin Developers
 //
 // Please see the included LICENSE file for more information.
@@ -88,6 +87,9 @@ namespace DaemonConfig
             "enable-blockexplorer",
             "Enable the Blockchain Explorer RPC",
             cxxopts::value<bool>()->default_value("false")->implicit_value("true"))(
+            "enable-blockexplorer-detailed",
+            "Enable the Blockchain Explorer Detailed RPC",
+            cxxopts::value<bool>()->default_value("false")->implicit_value("true"))(
             "enable-cors",
             "Adds header 'Access-Control-Allow-Origin' to the RPC responses using the <domain>. Uses the value "
             "specified as the domain. Use * for all.",
@@ -155,7 +157,7 @@ namespace DaemonConfig
 #ifdef ENABLE_ZSTD_COMPRESSION
             ("db-enable-compression",
              "Enable database compression",
-             cxxopts::value<bool>(config.enableDbCompression)->default_value("true"))
+             cxxopts::value<bool>()->default_value("false")->implicit_value("true"))
 #endif
                 ("db-max-open-files",
                  "Number of files that can be used by the database at one time",
@@ -173,6 +175,12 @@ namespace DaemonConfig
                     "Size of the database write buffer in megabytes (MB)",
                     cxxopts::value<int>()->default_value(std::to_string(config.dbWriteBufferSizeMB)),
                     "#");
+
+        options.add_options("Syncing")(
+            "transaction-validation-threads",
+            "Number of threads to use to validate a transaction's inputs in parallel",
+            cxxopts::value<uint32_t>()->default_value(std::to_string(config.transactionValidationThreads)),
+            "#");
 
         try
         {
@@ -347,6 +355,11 @@ namespace DaemonConfig
                 config.enableBlockExplorer = cli["enable-blockexplorer"].as<bool>();
             }
 
+            if (cli.count("enable-blockexplorer-detailed") > 0)
+            {
+                config.enableBlockExplorerDetailed = cli["enable-blockexplorer-detailed"].as<bool>();
+            }
+
             if (cli.count("enable-cors") > 0)
             {
                 config.enableCors = cli["enable-cors"].as<std::vector<std::string>>();
@@ -360,6 +373,11 @@ namespace DaemonConfig
             if (cli.count("fee-amount") > 0)
             {
                 config.feeAmount = cli["fee-amount"].as<int>();
+            }
+
+            if (cli.count("transaction-validation-threads") > 0)
+            {
+                config.transactionValidationThreads = cli["transaction-validation-threads"].as<uint32_t>();
             }
 
             if (config.help) // Do we want to display the help message?
@@ -603,6 +621,11 @@ namespace DaemonConfig
                     config.enableBlockExplorer = cfgValue.at(0) == '1';
                     updated = true;
                 }
+                else if (cfgKey.compare("enable-blockexplorer-detailed") == 0)
+                {
+                    config.enableBlockExplorerDetailed = cfgValue.at(0) == '1';
+                    updated = true;
+                }
                 else if (cfgKey.compare("enable-cors") == 0)
                 {
                     cors.push_back(cfgValue);
@@ -619,6 +642,18 @@ namespace DaemonConfig
                     try
                     {
                         config.feeAmount = std::stoi(cfgValue);
+                        updated = true;
+                    }
+                    catch (std::exception &e)
+                    {
+                        throw std::runtime_error(std::string(e.what()) + " - Invalid value for " + cfgKey);
+                    }
+                }
+                else if (cfgKey.compare("transaction-validation-threads") == 0)
+                {
+                    try
+                    {
+                        config.transactionValidationThreads = std::stoi(cfgValue);
                         updated = true;
                     }
                     catch (std::exception &e)
@@ -806,6 +841,11 @@ namespace DaemonConfig
             config.enableBlockExplorer = j["enable-blockexplorer"].GetBool();
         }
 
+        if (j.HasMember("enable-blockexplorer-detailed"))
+        {
+            config.enableBlockExplorerDetailed = j["enable-blockexplorer-detailed"].GetBool();
+        }
+
         if (j.HasMember("enable-cors"))
         {
             const Value &va = j["enable-cors"];
@@ -899,6 +939,7 @@ namespace DaemonConfig
         }
 
         j.AddMember("enable-blockexplorer", config.enableBlockExplorer, alloc);
+        j.AddMember("enable-blockexplorer-detailed", config.enableBlockExplorerDetailed, alloc);
         j.AddMember("fee-address", config.feeAddress, alloc);
         j.AddMember("fee-amount", config.feeAmount, alloc);
 

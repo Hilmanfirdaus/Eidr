@@ -1,7 +1,6 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2014-2018, The Monero Project
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -580,7 +579,7 @@ namespace CryptoNote
 
         if (getTopBlockIndex() == 0)
         {
-            logger(Logging::DEBUGGING) << "top block index is nill, add genesis block";
+            logger(Logging::DEBUGGING) << "top block index is null, add genesis block";
             addGenesisBlock(CachedBlock(currency.genesisBlock()));
         }
     }
@@ -1330,6 +1329,8 @@ namespace CryptoNote
         UpgradeManager upgradeManager;
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_2, currency.upgradeHeight(BLOCK_MAJOR_VERSION_2));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_3, currency.upgradeHeight(BLOCK_MAJOR_VERSION_3));
+        //upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_4, currency.upgradeHeight(BLOCK_MAJOR_VERSION_4));
+        //upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_5, currency.upgradeHeight(BLOCK_MAJOR_VERSION_5));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_6, currency.upgradeHeight(BLOCK_MAJOR_VERSION_6));
         return upgradeManager.getBlockMajorVersion(height);
     }

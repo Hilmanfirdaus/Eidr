@@ -1,6 +1,5 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -48,6 +47,11 @@ namespace CryptoNote
         return transactionPool->removeTransaction(hash);
     }
 
+    size_t TransactionPoolCleanWrapper::getFusionTransactionCount() const
+    {
+        return transactionPool->getFusionTransactionCount();
+    }
+
     size_t TransactionPoolCleanWrapper::getTransactionCount() const
     {
         return transactionPool->getTransactionCount();
@@ -88,6 +92,11 @@ namespace CryptoNote
         TransactionPoolCleanWrapper::getTransactionHashesByPaymentId(const Crypto::Hash &paymentId) const
     {
         return transactionPool->getTransactionHashesByPaymentId(paymentId);
+    }
+
+    void TransactionPoolCleanWrapper::flush()
+    {
+        return transactionPool->flush();
     }
 
     std::vector<Crypto::Hash> TransactionPoolCleanWrapper::clean(const uint32_t height)

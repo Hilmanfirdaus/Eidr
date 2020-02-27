@@ -10,7 +10,7 @@ sudo apt-get install -y build-essential python-dev gcc g++ git cmake libboost-al
 
 # This is the folder where your source code snapshots will go
 # when you are done building.
-sourcefolder=~/Source/ninja-dev-build-$(date '+%Y-%m-%d-%H-%M')
+sourcefolder=~/Source/turtle-dev-build-$(date '+%Y-%m-%d-%H-%M')
 
 # Clear the workspace
 clear
@@ -57,7 +57,7 @@ ls -al
 # zip file just in case.
 echo -e "\n\n\n== COMPRESSING BINARIES"
 wget https://raw.githubusercontent.com/turtlecoin/turtlecoin/development/LICENSE
-zip turtlecoin-dev-bin-$(date +%F)-linux.zip miner LICENSE zedwallet NinjaCoind ninja-service
+zip turtlecoin-dev-bin-$(date +%F)-linux.zip miner LICENSE zedwallet TurtleCoind turtle-service
 
 # Create directories to keep always-up-to-date binaries for 
 # TRTL Network files. Ideally, your bashrc has aliases to run
@@ -73,12 +73,12 @@ cd ~/Binaries
 # Remove the files that are already there just in case.
 rm ~/.Crypto/TurtleCoin/miner
 rm ~/.Crypto/TurtleCoin/zedwallet
-rm ~/.Crypto/TurtleCoin/NinjaCoind
-rm ~/.Crypto/TurtleCoin/ninja-service
+rm ~/.Crypto/TurtleCoin/TurtleCoind
+rm ~/.Crypto/TurtleCoin/turtle-service
 cp miner ~/.Crypto/TurtleCoin/miner
 cp zedwallet ~/.Crypto/TurtleCoin/zedwallet
-cp NinjaCoind ~/.Crypto/TurtleCoin/NinjaCoind
-cp ninja-service ~/.Crypto/TurtleCoin/ninja-service
+cp TurtleCoind ~/.Crypto/TurtleCoin/TurtleCoind
+cp turtle-service ~/.Crypto/TurtleCoin/turtle-service
 
 
 

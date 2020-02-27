@@ -65,6 +65,7 @@ set(NO_OPTIMIZED_MULTIPLY_ON_ARM OFF CACHE BOOL "Turn off Optimized Multiplicati
 
 ## This section defines a few parameters that we open up for use with RocksDB
 set(WITH_ZSTD ON CACHE STRING "Enable zstd compression")
+set(WITH_LZ4 ON CACHE STRING "Enable lz4 compression")
 
 message(STATUS "Building for target architecture: ${ARCH}")
 
@@ -245,9 +246,10 @@ if (NOT MSVC)
 endif ()
 
 ## Go get us some static BOOST libraries
+set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_STATIC_RUNTIME ON)
-find_package(Boost REQUIRED COMPONENTS system filesystem thread date_time chrono regex serialization)
+find_package(Boost REQUIRED COMPONENTS system thread date_time chrono serialization)
 message(STATUS "Boost Found: ${Boost_INCLUDE_DIRS}")
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 if (APPLE)
@@ -280,6 +282,14 @@ endif ()
 
 find_package(OpenSSL)
 
+if (NOT OPENSSL_FOUND)
+    find_package(PkgConfig)
+
+    if (PKG_CONFIG_FOUND)
+        pkg_search_module(OPENSSL openssl)
+    endif()
+endif()
+
 if (OPENSSL_FOUND)
     ## On non MSVC build systems, we need to link ldl with the static OpenSSL library
     if (NOT MSVC)
@@ -300,7 +310,7 @@ add_subdirectory(src)
 ## We need to setup the RocksDB build environment to match our system
 if (NOT MSVC)
     execute_process(
-            COMMAND cmake ${CMAKE_CURRENT_SOURCE_DIR}/external/rocksdb -DARCH=${ARCH} -DWITH_ZSTD=${WITH_ZSTD} -DWITH_GFLAGS=0 -DCMAKE_BUILD_TYPE=MinSizeRel -DWITH_TESTS=OFF -DWITH_TOOLS=OFF -DPORTABLE=ON -B${PROJECT_BINARY_DIR}/rocksdb
+            COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/external/rocksdb -DARCH=${ARCH} -DWITH_ZSTD=${WITH_ZSTD} -DWITH_LZ4=${WITH_LZ4} -DWITH_GFLAGS=0 -DCMAKE_BUILD_TYPE=MinSizeRel -DWITH_TESTS=OFF -DWITH_TOOLS=OFF -DPORTABLE=ON -B${PROJECT_BINARY_DIR}/rocksdb
     )
     set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${PROJECT_BINARY_DIR}/rocksdb/librocksdb.a")
 endif ()

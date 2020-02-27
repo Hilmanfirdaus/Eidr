@@ -1,5 +1,4 @@
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -39,13 +38,15 @@ SubWallet::SubWallet(
     const std::string address,
     const uint64_t scanHeight,
     const uint64_t scanTimestamp,
-    const bool isPrimaryAddress):
+    const bool isPrimaryAddress,
+    const uint64_t walletIndex):
     m_publicSpendKey(publicSpendKey),
     m_address(address),
     m_syncStartHeight(scanHeight),
     m_syncStartTimestamp(scanTimestamp),
     m_privateSpendKey(privateSpendKey),
-    m_isPrimaryAddress(isPrimaryAddress)
+    m_isPrimaryAddress(isPrimaryAddress),
+    m_walletIndex(walletIndex)
 {
 }
 
@@ -53,7 +54,7 @@ SubWallet::SubWallet(
 /* CLASS FUNCTIONS */
 /////////////////////
 
-Crypto::KeyImage SubWallet::getTxInputKeyImage(
+std::tuple<Crypto::KeyImage, Crypto::SecretKey> SubWallet::getTxInputKeyImage(
     const Crypto::KeyDerivation derivation,
     const size_t outputIndex,
     const bool isViewWallet) const
@@ -77,9 +78,11 @@ Crypto::KeyImage SubWallet::getTxInputKeyImage(
 
         /* Get the key image from the tmp public and private key */
         Crypto::generate_key_image(tmp.publicKey, tmp.secretKey, keyImage);
-        return keyImage;
+
+        return { keyImage, tmp.secretKey };
     }
-    return Crypto::KeyImage();
+
+    return { Crypto::KeyImage(), Crypto::SecretKey() };
 }
 
 void SubWallet::storeTransactionInput(const WalletTypes::TransactionInput input, const bool isViewWallet)
@@ -146,6 +149,11 @@ bool SubWallet::isPrimaryAddress() const
 std::string SubWallet::address() const
 {
     return m_address;
+}
+
+uint64_t SubWallet::walletIndex() const
+{
+    return m_walletIndex;
 }
 
 Crypto::PublicKey SubWallet::publicSpendKey() const
@@ -236,18 +244,12 @@ void SubWallet::markInputAsLocked(const Crypto::KeyImage keyImage)
 
 std::vector<Crypto::KeyImage> SubWallet::removeForkedInputs(const uint64_t forkHeight, const bool isViewWallet)
 {
-    std::vector<Crypto::KeyImage> keyImagesToRemove;
-
-    for (const auto input : m_lockedInputs)
-    {
-        keyImagesToRemove.push_back(input.keyImage);
-    }
-
-    /* Both of these will be resolved by the wallet in time */
-    m_lockedInputs.clear();
+    /* This will get resolved by the wallet in time */
     m_unconfirmedIncomingAmounts.clear();
 
-    auto isForked = [forkHeight, &keyImagesToRemove](const auto input)
+    std::vector<Crypto::KeyImage> keyImagesToRemove;
+
+    auto isForked = [forkHeight, &keyImagesToRemove](const auto &input)
     {
         if (input.blockHeight >= forkHeight)
         {
@@ -267,8 +269,9 @@ std::vector<Crypto::KeyImage> SubWallet::removeForkedInputs(const uint64_t forkH
         }
     };
 
-    /* Remove both spent and unspent inputs that were recieved after the fork
-       height */
+    /* Remove both spent and unspent and locked inputs that were recieved after
+     * the fork height */
+    removeForked(m_lockedInputs);
     removeForked(m_unspentInputs);
     removeForked(m_spentInputs);
 
@@ -338,6 +341,24 @@ void SubWallet::removeCancelledTransactions(const std::unordered_set<Crypto::Has
     {
         m_unconfirmedIncomingAmounts.erase(it2, m_unconfirmedIncomingAmounts.end());
     }
+}
+
+bool SubWallet::haveSpendableInput(
+    const WalletTypes::TransactionInput& input,
+    const uint64_t height) const
+{
+    for (const auto i : m_unspentInputs)
+    {
+        /* Checking for .key to support view wallets */
+        if (input.keyImage == i.keyImage || input.key == i.key)
+        {
+            /* Only gonna be one input that matches so can early return false
+             * if the input is locked */
+            return Utilities::isInputUnlocked(i.unlockTime, height);
+        }
+    }
+
+    return false;
 }
 
 std::vector<WalletTypes::TxInputAndOwner> SubWallet::getSpendableInputs(const uint64_t height) const
@@ -423,6 +444,11 @@ std::vector<Crypto::KeyImage> SubWallet::getKeyImages() const
 
 void SubWallet::fromJSON(const JSONValue &j)
 {
+    if (j.HasMember("walletIndex"))
+    {
+        m_walletIndex = getUint64FromJSON(j, "walletIndex");
+    }
+
     m_publicSpendKey.fromString(getStringFromJSON(j, "publicSpendKey"));
     m_privateSpendKey.fromString(getStringFromJSON(j, "privateSpendKey"));
     m_address = getStringFromJSON(j, "address");
@@ -458,6 +484,8 @@ void SubWallet::fromJSON(const JSONValue &j)
 void SubWallet::toJSON(rapidjson::Writer<rapidjson::StringBuffer> &writer) const
 {
     writer.StartObject();
+    writer.Key("walletIndex");
+    writer.Uint64(m_walletIndex);
     writer.Key("publicSpendKey");
     m_publicSpendKey.toJSON(writer);
     writer.Key("privateSpendKey");

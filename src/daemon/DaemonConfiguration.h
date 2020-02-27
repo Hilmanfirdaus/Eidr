@@ -1,5 +1,4 @@
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 // Copyright (c) 2019, The CyprusCoin Developers
 //
 // Please see the included LICENSE file for more information.
@@ -12,6 +11,7 @@
 #include <config/CryptoNoteConfig.h>
 #include <logging/ILogger.h>
 #include <rapidjson/document.h>
+#include <thread>
 
 using namespace rapidjson;
 
@@ -36,10 +36,12 @@ namespace DaemonConfig
             p2pInterface = "0.0.0.0";
             p2pPort = CryptoNote::P2P_DEFAULT_PORT;
             p2pExternalPort = 0;
+            transactionValidationThreads = std::thread::hardware_concurrency();
             rpcInterface = "127.0.0.1";
             rpcPort = CryptoNote::RPC_DEFAULT_PORT;
             noConsole = false;
             enableBlockExplorer = false;
+            enableBlockExplorerDetailed = false;
             localIp = false;
             hideMyPort = false;
             p2pResetPeerstate = false;
@@ -84,6 +86,8 @@ namespace DaemonConfig
 
         int p2pExternalPort;
 
+        uint32_t transactionValidationThreads;
+
         int dbThreads;
 
         int dbMaxOpenFiles;
@@ -97,6 +101,8 @@ namespace DaemonConfig
         bool noConsole;
 
         bool enableBlockExplorer;
+
+        bool enableBlockExplorerDetailed;
 
         bool localIp;
 

@@ -1,5 +1,4 @@
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -22,7 +21,7 @@ Error validateFusionTransaction(
 Error validateTransaction(
     const std::vector<std::pair<std::string, uint64_t>> destinations,
     const uint64_t mixin,
-    const uint64_t fee,
+    const WalletTypes::FeeType fee,
     const std::string paymentID,
     const std::vector<std::string> subWalletsToTakeFrom,
     const std::string changeAddress,
@@ -45,7 +44,7 @@ Error validateMixin(const uint64_t mixin, const uint64_t height);
 
 Error validateAmount(
     const std::vector<std::pair<std::string, uint64_t>> destinations,
-    const uint64_t fee,
+    const WalletTypes::FeeType fee,
     const std::vector<std::string> subWalletsToTakeFrom,
     const std::shared_ptr<SubWallets> subWallets,
     const uint64_t currentHeight);
