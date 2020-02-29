@@ -27,7 +27,7 @@ If you are using Clang, you will need Clang 6.0 or higher. You will also need li
 - `sudo apt-get update`
 - `sudo apt-get install aptitude -y`
 - `sudo aptitude install -y build-essential g++-8 gcc-8 git libboost-all-dev python-pip`
-- `sudo pip install cmake`
+- `sudo apt install cmake`
 - `export CC=gcc-8`
 - `export CXX=g++-8`
 - `git clone -b master --single-branch https://github.com/ninjacoin-master/ninjacoin`
