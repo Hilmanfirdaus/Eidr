@@ -351,8 +351,8 @@ namespace CryptoNote
     const size_t P2P_DEFAULT_HANDSHAKE_INVOKE_TIMEOUT = 5000; // 5 seconds
     const char P2P_STAT_TRUSTED_PUB_KEY[] = "";
 
-    const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 60; // 60 MB
-    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 60; // 60 MB
+    const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 64; // 64 MB
+    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 64; // 64 MB
     const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 125; // 125 files
     const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT = 4; // 4 DB threads
 
@@ -365,9 +365,6 @@ namespace CryptoNote
 
     const char *const SEED_NODES[] = {
         "server.ninjacoin.org:11800",
-		"165.227.157.221:11800",
-        "213.136.89.252:11800", 
-        "144.91.109.95:11800", 
         "167.86.88.166:11800", 
         "173.249.41.102:11800",
         "130.185.202.159:11800"
