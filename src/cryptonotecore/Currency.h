@@ -461,11 +461,9 @@ namespace CryptoNote
 
         uint32_t m_upgradeHeightV3;
 
-        uint32_t m_upgradeHeightV4;
-
-        uint32_t m_upgradeHeightV5;
-
         uint32_t m_upgradeHeightV6;
+
+        uint32_t m_upgradeHeightV7;
 
         unsigned int m_upgradeVotingThreshold;
 
@@ -711,21 +709,15 @@ namespace CryptoNote
             return *this;
         }
 
-        CurrencyBuilder &upgradeHeightV4(uint32_t val)
-        {
-            m_currency.m_upgradeHeightV4 = val;
-            return *this;
-        }
-
-        CurrencyBuilder &upgradeHeightV5(uint32_t val)
-        {
-            m_currency.m_upgradeHeightV5 = val;
-            return *this;
-        }
-
         CurrencyBuilder &upgradeHeightV6(uint32_t val)
         {
             m_currency.m_upgradeHeightV6 = val;
+            return *this;
+        }
+
+        CurrencyBuilder &upgradeHeightV7(uint32_t val)
+        {
+            m_currency.m_upgradeHeightV7 = val;
             return *this;
         }
 

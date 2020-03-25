@@ -238,7 +238,6 @@ namespace CryptoNote
         blockInfos.get<BlockIndexTag>().push_back(std::move(blockInfo));
 
         auto blockIndex = cachedBlock.getBlockIndex();
-        assert(blockIndex == blockInfos.size() + startIndex - 1);
 
         for (const auto &keyImage : validatorState.spentKeyImages)
         {
@@ -1462,9 +1461,8 @@ namespace CryptoNote
         UpgradeManager upgradeManager;
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_2, currency.upgradeHeight(BLOCK_MAJOR_VERSION_2));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_3, currency.upgradeHeight(BLOCK_MAJOR_VERSION_3));
-        //upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_4, currency.upgradeHeight(BLOCK_MAJOR_VERSION_4));
-        //upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_5, currency.upgradeHeight(BLOCK_MAJOR_VERSION_5));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_6, currency.upgradeHeight(BLOCK_MAJOR_VERSION_6));
+        upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_7, currency.upgradeHeight(BLOCK_MAJOR_VERSION_7));
         return upgradeManager.getBlockMajorVersion(height);
     }
 

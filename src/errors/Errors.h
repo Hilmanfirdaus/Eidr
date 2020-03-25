@@ -186,12 +186,12 @@ enum ErrorCode
 
     /* Value given is negative, but must be >= 0
        NOTE: Not used in WalletBackend, only here to maintain API compatibility
-       with turtlecoin-wallet-backend-js */
+       with ninjacoin-wallet-backend-js */
     NEGATIVE_VALUE_GIVEN = 46,
 
     /* Key is not 64 char hex
        NOTE: Not used in WalletBackend, only here to maintain API compatibility
-       with turtlecoin-wallet-backend-js */
+       with ninjacoin-wallet-backend-js */
     INVALID_KEY_FORMAT = 47,
 
     /* Hash not 64 chars */
@@ -202,7 +202,7 @@ enum ErrorCode
 
     /* Number is a float, not an integer
        NOTE: Not used in WalletBackend, only here to maintain API compatibility
-       with turtlecoin-wallet-backend-js */
+       with ninjacoin-wallet-backend-js */
     NON_INTEGER_GIVEN = 50,
 
     /* Not on ed25519 curve */
@@ -233,6 +233,10 @@ enum ErrorCode
      * it never existed, or because the wallet was restarted and the prepared
      * transaction state was lost */
     PREPARED_TRANSACTION_NOT_FOUND = 58,
+
+    /* The amount given does not have only a single significant digit - i.e.,
+     * it cannot be used directly as a transaction input/output amount */
+    AMOUNT_UGLY = 59,
 };
 
 class Error

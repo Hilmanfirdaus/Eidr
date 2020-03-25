@@ -250,9 +250,8 @@ namespace CryptoNote
     {
         upgradeManager->addMajorBlockVersion(BLOCK_MAJOR_VERSION_2, currency.upgradeHeight(BLOCK_MAJOR_VERSION_2));
         upgradeManager->addMajorBlockVersion(BLOCK_MAJOR_VERSION_3, currency.upgradeHeight(BLOCK_MAJOR_VERSION_3));
-        //upgradeManager->addMajorBlockVersion(BLOCK_MAJOR_VERSION_4, currency.upgradeHeight(BLOCK_MAJOR_VERSION_4));
-        //upgradeManager->addMajorBlockVersion(BLOCK_MAJOR_VERSION_5, currency.upgradeHeight(BLOCK_MAJOR_VERSION_5));
         upgradeManager->addMajorBlockVersion(BLOCK_MAJOR_VERSION_6, currency.upgradeHeight(BLOCK_MAJOR_VERSION_6));
+        upgradeManager->addMajorBlockVersion(BLOCK_MAJOR_VERSION_7, currency.upgradeHeight(BLOCK_MAJOR_VERSION_7));
 
         transactionPool = std::unique_ptr<ITransactionPoolCleanWrapper>(new TransactionPoolCleanWrapper(
             std::unique_ptr<ITransactionPool>(new TransactionPool(logger)),
@@ -338,7 +337,7 @@ namespace CryptoNote
         throwIfNotInitialized();
 
         auto timestamps = chainsLeaves[0]->getLastTimestamps(1, blockIndex, addGenesisBlock);
-        assert(!(timestamps.size() == 1));
+        assert(timestamps.size() == 1);
 
         return timestamps[0];
     }
@@ -1219,7 +1218,7 @@ namespace CryptoNote
         }
 
         // Copyright (c) 2018-2019, The Galaxia Project Developers
-        // See https://github.com/turtlecoin/turtlecoin/issues/748 for more information
+        // See https://github.com/ninjacoin/ninjacoin/issues/748 for more information
         if (blockIndex >= CryptoNote::parameters::BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT)
         {
             /* Check to verify that the blocktemplate suppied contains no duplicate transaction hashes */
@@ -1502,11 +1501,17 @@ namespace CryptoNote
 
         for (const auto poolTxHash : poolHashes)
         {
-            const auto poolTx = pool.getTransaction(poolTxHash);
+            const auto poolTx = pool.tryGetTransaction(poolTxHash);
 
-            const auto poolTxState = extractSpentOutputs(poolTx);
+            /* Tx got removed by another thread */
+            if (!poolTx)
+            {
+                continue;
+            }
 
-            auto [mixinSuccess, err] = Mixins::validate({poolTx}, getTopBlockIndex());
+            const auto poolTxState = extractSpentOutputs(*poolTx);
+
+            auto [mixinSuccess, err] = Mixins::validate({*poolTx}, getTopBlockIndex());
 
             bool isValid = true;
 
@@ -1521,7 +1526,7 @@ namespace CryptoNote
                 isValid = false;
             }
             /* If the transaction exceeds the maximum size of a transaction, fail */
-            else if (poolTx.getTransactionBinaryArray().size() > maxTransactionSize)
+            else if (poolTx->getTransactionBinaryArray().size() > maxTransactionSize)
             {
                 isValid = false;
             }
@@ -1631,6 +1636,9 @@ namespace CryptoNote
         rawBlock.block = std::move(rawBlockTemplate);
 
         rawBlock.transactions.reserve(blockTemplate.transactionHashes.size());
+
+        std::scoped_lock lock(m_submitBlockMutex);
+
         for (const auto &transactionHash : blockTemplate.transactionHashes)
         {
             if (!transactionPool->checkIfTransactionPresent(transactionHash))

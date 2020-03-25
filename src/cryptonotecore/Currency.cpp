@@ -161,18 +161,14 @@ namespace CryptoNote
         {
             return m_upgradeHeightV3;
         }
-        /*else if (majorVersion == BLOCK_MAJOR_VERSION_4)
-        {
-            return m_upgradeHeightV4;
-        }
-        else if (majorVersion == BLOCK_MAJOR_VERSION_5)
-        {
-            return m_upgradeHeightV5;
-        }*/
         else if (majorVersion == BLOCK_MAJOR_VERSION_6)
         {
             return m_upgradeHeightV6;
         }
+        else if (majorVersion == BLOCK_MAJOR_VERSION_7)
+        {
+            return m_upgradeHeightV7;
+        }		
         else
         {
             return static_cast<uint32_t>(-1);
@@ -790,9 +786,8 @@ namespace CryptoNote
         m_fusionTxMinInOutCountRatio(currency.m_fusionTxMinInOutCountRatio),
         m_upgradeHeightV2(currency.m_upgradeHeightV2),
         m_upgradeHeightV3(currency.m_upgradeHeightV3),
-        m_upgradeHeightV4(currency.m_upgradeHeightV4),
-        m_upgradeHeightV5(currency.m_upgradeHeightV5),
         m_upgradeHeightV6(currency.m_upgradeHeightV6),
+        m_upgradeHeightV7(currency.m_upgradeHeightV7),
         m_upgradeVotingThreshold(currency.m_upgradeVotingThreshold),
         m_upgradeVotingWindow(currency.m_upgradeVotingWindow),
         m_upgradeWindow(currency.m_upgradeWindow),
@@ -857,9 +852,8 @@ namespace CryptoNote
 
         upgradeHeightV2(parameters::UPGRADE_HEIGHT_V2);
         upgradeHeightV3(parameters::UPGRADE_HEIGHT_V3);
-        //upgradeHeightV4(parameters::UPGRADE_HEIGHT_V4);
-        //upgradeHeightV5(parameters::UPGRADE_HEIGHT_V5);
         upgradeHeightV6(parameters::UPGRADE_HEIGHT_V6);
+        upgradeHeightV7(parameters::UPGRADE_HEIGHT_V7);
         upgradeVotingThreshold(parameters::UPGRADE_VOTING_THRESHOLD);
         upgradeVotingWindow(parameters::UPGRADE_VOTING_WINDOW);
         upgradeWindow(parameters::UPGRADE_WINDOW);

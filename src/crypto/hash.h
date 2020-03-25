@@ -52,6 +52,13 @@
 #define CHUKWA_ITERS 3 // How many iterations we perform as part of our slow-hash
 #define CHUKWA_MEMORY 512 // This value is in KiB (0.5MB)
 
+// Ninja Definitions
+#define NINJA_HASHLEN 32 // The length of the resulting hash in bytes
+#define NINJA_SALTLEN 16 // The length of our salt in bytes
+#define NINJA_THREADS 1 // How many threads to use at once
+#define NINJA_ITERS 4 // How many iterations we perform as part of our slow-hash
+#define NINJA_MEMORY 128 // This value is in KiB (0.1MB)
+
 namespace Crypto
 {
     extern "C"
@@ -382,6 +389,27 @@ namespace Crypto
 
         argon2id_hash_raw(
             CHUKWA_ITERS, CHUKWA_MEMORY, CHUKWA_THREADS, data, length, salt, CHUKWA_SALTLEN, hash.data, CHUKWA_HASHLEN);
+    }
+
+ inline void ninja_slow_hash(const void *data, size_t length, Hash &hash)
+    {
+        uint8_t salt[NINJA_SALTLEN];
+        memcpy(salt, data, sizeof(salt));
+
+        /* If this is the first time we've called this hash function then
+           we need to have the Argon2 library check to see if any of the
+           available CPU instruction sets are going to help us out */
+        if (!argon2_optimization_selected)
+        {
+            /* Call the library quick benchmark test to set which CPU
+               instruction sets will be used */
+            argon2_select_impl(NULL, NULL);
+
+            argon2_optimization_selected = true;
+        }
+
+        argon2id_hash_raw(
+            NINJA_ITERS, NINJA_MEMORY, NINJA_THREADS, data, length, salt, NINJA_SALTLEN, hash.data, NINJA_HASHLEN);
     }
 
     inline void tree_hash(const Hash *hashes, size_t count, Hash &root_hash)

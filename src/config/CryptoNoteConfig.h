@@ -1,7 +1,7 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2014-2018, The Monero Project
-// Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2019-2020, The NinjaCoin Developers
+// Copyright (c) 2018-2020, The TurtleCoin Developers
+//
 // Please see the included LICENSE file for more information.
 
 #pragma once
@@ -43,15 +43,15 @@ namespace CryptoNote
         // MONEY_SUPPLY - total number coins to be generated
         const uint64_t MONEY_SUPPLY = UINT64_C(100000000000000);
 
-        const uint32_t ZAWY_DIFFICULTY_BLOCK_INDEX = 187000;
+        const uint32_t ZAWY_DIFFICULTY_BLOCK_INDEX = 0;
 
         const size_t ZAWY_DIFFICULTY_V2 = 0;
 
         const uint8_t ZAWY_DIFFICULTY_DIFFICULTY_BLOCK_VERSION = 3;
 
-        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX = 349998;
+        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX = 350000;;
 
-        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX_V2 = 349999;
+        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX_V2 = 350000;
 
         const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX_V3 = 350000;
 
@@ -232,13 +232,11 @@ namespace CryptoNote
 
         const uint32_t UPGRADE_HEIGHT_V3 = 2;
 
-        //const uint32_t UPGRADE_HEIGHT_V4 = 350000; // Upgrade height for CN-Lite Variant 1 switch.
-
-        //const uint32_t UPGRADE_HEIGHT_V5 = 1200000; // Upgrade height for CN-Turtle Variant 2 switch.
-
         const uint32_t UPGRADE_HEIGHT_V6 = 400000; // Upgrade height for Chukwa switch.
+		
+		const uint32_t UPGRADE_HEIGHT_V7 = 1000000; // Upgrade height for Ninja switch.
 
-        const uint32_t UPGRADE_HEIGHT_CURRENT = UPGRADE_HEIGHT_V6;
+        const uint32_t UPGRADE_HEIGHT_CURRENT = UPGRADE_HEIGHT_V7;
 
         const unsigned UPGRADE_VOTING_THRESHOLD = 90; // percent
         const uint32_t UPGRADE_VOTING_WINDOW = EXPECTED_NUMBER_OF_BLOCKS_PER_DAY; // blocks
@@ -252,10 +250,11 @@ namespace CryptoNote
             350000, // 1
             400000, // 2
             950000, // 3
+		   1000000, // 4 Argon2id/Ninja
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
-        const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX = 3;
+        const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX = 4;
 
         const uint64_t FORK_HEIGHTS_SIZE = sizeof(FORK_HEIGHTS) / sizeof(*FORK_HEIGHTS);
 
@@ -294,9 +293,8 @@ namespace CryptoNote
     const uint8_t BLOCK_MAJOR_VERSION_1 = 1; /* From zero */
     const uint8_t BLOCK_MAJOR_VERSION_2 = 2; /* UPGRADE_HEIGHT_V2 */
     const uint8_t BLOCK_MAJOR_VERSION_3 = 3; /* UPGRADE_HEIGHT_V3 */
-    //const uint8_t BLOCK_MAJOR_VERSION_4 = 4; /* UPGRADE_HEIGHT_V4 */
-    //const uint8_t BLOCK_MAJOR_VERSION_5 = 5; /* UPGRADE_HEIGHT_V5 */
     const uint8_t BLOCK_MAJOR_VERSION_6 = 6; /* UPGRADE_HEIGHT_V6 */
+    const uint8_t BLOCK_MAJOR_VERSION_7 = 7; /* UPGRADE_HEIGHT_V7 */
 
     const uint8_t BLOCK_MINOR_VERSION_0 = 0;
 
@@ -307,9 +305,8 @@ namespace CryptoNote
             {BLOCK_MAJOR_VERSION_1, Crypto::cn_slow_hash_v0}, /* From zero */
             {BLOCK_MAJOR_VERSION_2, Crypto::cn_slow_hash_v0}, /* UPGRADE_HEIGHT_V2 */
             {BLOCK_MAJOR_VERSION_3, Crypto::cn_slow_hash_v0}, /* UPGRADE_HEIGHT_V3 */
-            //{BLOCK_MAJOR_VERSION_4, Crypto::cn_lite_slow_hash_v1}, /* UPGRADE_HEIGHT_V4 */
-            //{BLOCK_MAJOR_VERSION_5, Crypto::cn_turtle_lite_slow_hash_v2}, /* UPGRADE_HEIGHT_V5 */
-            {BLOCK_MAJOR_VERSION_6, Crypto::chukwa_slow_hash} /* UPGRADE_HEIGHT_V6 */
+            {BLOCK_MAJOR_VERSION_6, Crypto::chukwa_slow_hash}, /* UPGRADE_HEIGHT_V6 */
+			{BLOCK_MAJOR_VERSION_7, Crypto::ninja_slow_hash} /* UPGRADE_HEIGHT_V7 */
     };
 
     const size_t BLOCKS_IDS_SYNCHRONIZING_DEFAULT_COUNT = 10000; // by default, blocks ids count in synchronizing
@@ -328,9 +325,9 @@ namespace CryptoNote
 
     // P2P Network Configuration Section - This defines our current P2P network version
     // and the minimum version for communication between nodes
-    const uint8_t P2P_CURRENT_VERSION = 8;
+    const uint8_t P2P_CURRENT_VERSION = 9;
 
-    const uint8_t P2P_MINIMUM_VERSION = 7;
+    const uint8_t P2P_MINIMUM_VERSION = 8;
 
     // This defines the minimum P2P version required for lite blocks propogation
     const uint8_t P2P_LITE_BLOCKS_PROPOGATION_VERSION = 4;
@@ -354,8 +351,8 @@ namespace CryptoNote
     const size_t P2P_DEFAULT_HANDSHAKE_INVOKE_TIMEOUT = 5000; // 5 seconds
     const char P2P_STAT_TRUSTED_PUB_KEY[] = "";
 
-    const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 256; // 256 MB
-    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 128; // 128 MB
+    const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 60; // 60 MB
+    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 60; // 60 MB
     const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 125; // 125 files
     const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT = 4; // 4 DB threads
 
@@ -367,6 +364,12 @@ namespace CryptoNote
         {0xcb, 0x0c, 0x4a, 0x6c, 0xcf, 0x72, 0x57, 0x41, 0x25, 0xf9, 0x91, 0xa5, 0xb6, 0xc1, 0x42, 0xe2}};
 
     const char *const SEED_NODES[] = {
-        "165.227.157.221:11800"  //node
+        "server.ninjacoin.org:11800",
+		"165.227.157.221:11800",
+        "213.136.89.252:11800", 
+        "144.91.109.95:11800", 
+        "167.86.88.166:11800", 
+        "173.249.41.102:11800",
+        "130.185.202.159:11800"
     };
 } // namespace CryptoNote
