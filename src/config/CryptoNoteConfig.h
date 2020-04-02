@@ -364,7 +364,7 @@ namespace CryptoNote
         {0xcb, 0x0c, 0x4a, 0x6c, 0xcf, 0x72, 0x57, 0x41, 0x25, 0xf9, 0x91, 0xa5, 0xb6, 0xc1, 0x42, 0xe2}};
 
     const char *const SEED_NODES[] = {
-        "server.ninjacoin.org:11800",
+        "3.17.18.136:11800",
         "167.86.88.166:11800", 
         "173.249.41.102:11800",
         "130.185.202.159:11800"
