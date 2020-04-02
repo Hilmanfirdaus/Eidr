@@ -49,9 +49,9 @@ namespace CryptoNote
 
         const uint8_t ZAWY_DIFFICULTY_DIFFICULTY_BLOCK_VERSION = 3;
 
-        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX = 350000;;
+        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX = 349998;
 
-        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX_V2 = 350000;
+        const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX_V2 = 349999;
 
         const uint64_t LWMA_2_DIFFICULTY_BLOCK_INDEX_V3 = 350000;
 
