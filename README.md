@@ -1,5 +1,5 @@
 
-![assets_img_logo](https://user-images.githubusercontent.com/47786795/78132434-08e01c00-741d-11ea-97b9-40368d214860.png)
+![ninjacover](https://user-images.githubusercontent.com/47786795/79329437-1b2b8100-7f18-11ea-95f9-340f9595b048.png)
 
 [![Build Status](https://travis-ci.org/NinjaCoin-Master/NinjaCoin.svg?branch=master)](https://travis-ci.org/NinjaCoin-Master/NinjaCoin)
 
