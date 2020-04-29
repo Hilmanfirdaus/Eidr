@@ -1,6 +1,6 @@
 ![repository-open-graph-template](https://user-images.githubusercontent.com/47786795/80489002-81c08e00-895f-11ea-8e04-2dc4a437af2d.png)
 
-![Build Status](https://travis-ci.org/NinjaCoin-Master/NinjaCoin.svg?branch=master)](https://travis-ci.org/NinjaCoin-Master/NinjaCoin)
+[![Build Status](https://travis-ci.org/NinjaCoin-Master/NinjaCoin.svg?branch=master)](https://travis-ci.org/NinjaCoin-Master/NinjaCoin)
 
 ### Installing
 
