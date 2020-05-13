@@ -238,7 +238,7 @@ namespace CryptoNote
 		
 		const uint32_t UPGRADE_HEIGHT_V8 = 1150000; // Upgrade height for Ninja v1 switch.
 
-        const uint32_t UPGRADE_HEIGHT_CURRENT = UPGRADE_HEIGHT_V7;
+        const uint32_t UPGRADE_HEIGHT_CURRENT = UPGRADE_HEIGHT_V8;
 
         const unsigned UPGRADE_VOTING_THRESHOLD = 90; // percent
         const uint32_t UPGRADE_VOTING_WINDOW = EXPECTED_NUMBER_OF_BLOCKS_PER_DAY; // blocks
@@ -311,7 +311,7 @@ namespace CryptoNote
             {BLOCK_MAJOR_VERSION_3, Crypto::cn_slow_hash_v0}, /* UPGRADE_HEIGHT_V3 */
             {BLOCK_MAJOR_VERSION_6, Crypto::chukwa_slow_hash}, /* UPGRADE_HEIGHT_V6 */
 			{BLOCK_MAJOR_VERSION_7, Crypto::ninja_slow_hash}, /* UPGRADE_HEIGHT_V7 */
-			{BLOCK_MAJOR_VERSION_8, Crypto::ninja_slow_hash_v1} /* UPGRADE_HEIGHT_V8 */
+			{BLOCK_MAJOR_VERSION_8, Crypto::ninjav1_slow_hash} /* UPGRADE_HEIGHT_V8 */
     };
 
     const size_t BLOCKS_IDS_SYNCHRONIZING_DEFAULT_COUNT = 10000; // by default, blocks ids count in synchronizing

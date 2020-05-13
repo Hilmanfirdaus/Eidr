@@ -60,11 +60,11 @@
 #define NINJA_MEMORY 128 // This value is in KiB (0.1MB)
 
 // Ninja_v1 Definitions
-#define NINJA_v1_HASHLEN 32 // The length of the resulting hash in bytes
-#define NINJA_v1_SALTLEN 16 // The length of our salt in bytes
-#define NINJA_v1_THREADS 1 // How many threads to use at once
-#define NINJA_v1_ITERS 4 // How many iterations we perform as part of our slow-hash
-#define NINJA_v1_MEMORY 256 // This value is in KiB (0.2MB)
+#define NINJAV1_HASHLEN 32 // The length of the resulting hash in bytes
+#define NINJAV1_SALTLEN 16 // The length of our salt in bytes
+#define NINJAV1_THREADS 1 // How many threads to use at once
+#define NINJAV1_ITERS 4 // How many iterations we perform as part of our slow-hash
+#define NINJAV1_MEMORY 256 // This value is in KiB (0.2MB)
 
 namespace Crypto
 {
@@ -419,9 +419,9 @@ namespace Crypto
             NINJA_ITERS, NINJA_MEMORY, NINJA_THREADS, data, length, salt, NINJA_SALTLEN, hash.data, NINJA_HASHLEN);
     }
 
-inline void ninja_slow_hash_v1(const void *data, size_t length, Hash &hash)
+inline void ninjav1_slow_hash(const void *data, size_t length, Hash &hash)
     {
-        uint8_t salt[NINJA_v1_SALTLEN];
+        uint8_t salt[NINJAV1_SALTLEN];
         memcpy(salt, data, sizeof(salt));
 
         /* If this is the first time we've called this hash function then
@@ -437,7 +437,7 @@ inline void ninja_slow_hash_v1(const void *data, size_t length, Hash &hash)
         }
 
         argon2id_hash_raw(
-            NINJA_v1_ITERS, NINJA_v1_MEMORY, NINJA_v1_THREADS, data, length, salt, NINJA_v1_SALTLEN, hash.data, NINJA_v1_HASHLEN);
+            NINJAV1_ITERS, NINJAV1_MEMORY, NINJAV1_THREADS, data, length, salt, NINJAV1_SALTLEN, hash.data, NINJAV1_HASHLEN);
     }
 
    inline void tree_hash(const Hash *hashes, size_t count, Hash &root_hash)
