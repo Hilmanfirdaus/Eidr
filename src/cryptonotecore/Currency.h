@@ -725,7 +725,7 @@ namespace CryptoNote
 		
 		CurrencyBuilder &upgradeHeightV8(uint32_t val)
         {
-            m_currency.m_upgradeHeightV = val;
+            m_currency.m_upgradeHeightV8 = val;
             return *this;
         }
 
