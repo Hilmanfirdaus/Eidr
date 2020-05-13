@@ -419,28 +419,6 @@ namespace Crypto
             NINJA_ITERS, NINJA_MEMORY, NINJA_THREADS, data, length, salt, NINJA_SALTLEN, hash.data, NINJA_HASHLEN);
     }
 
-    inline void tree_hash(const Hash *hashes, size_t count, Hash &root_hash)
-    {
-        tree_hash(reinterpret_cast<const char(*)[HASH_SIZE]>(hashes), count, reinterpret_cast<char *>(&root_hash));
-    }
-
-    inline void tree_branch(const Hash *hashes, size_t count, Hash *branch)
-    {
-        tree_branch(
-            reinterpret_cast<const char(*)[HASH_SIZE]>(hashes), count, reinterpret_cast<char(*)[HASH_SIZE]>(branch));
-    }
-
-    inline void
-        tree_hash_from_branch(const Hash *branch, size_t depth, const Hash &leaf, const void *path, Hash &root_hash)
-    {
-        tree_hash_from_branch(
-            reinterpret_cast<const char(*)[HASH_SIZE]>(branch),
-            depth,
-            reinterpret_cast<const char *>(&leaf),
-            path,
-            reinterpret_cast<char *>(&root_hash));
-    }
-
 inline void ninja_slow_hash_v1(const void *data, size_t length, Hash &hash)
     {
         uint8_t salt[NINJA_v1_SALTLEN];
@@ -462,7 +440,7 @@ inline void ninja_slow_hash_v1(const void *data, size_t length, Hash &hash)
             NINJA_v1_ITERS, NINJA_v1_MEMORY, NINJA_v1_THREADS, data, length, salt, NINJA_v1_SALTLEN, hash.data, NINJA_v1_HASHLEN);
     }
 
-    inline void tree_hash(const Hash *hashes, size_t count, Hash &root_hash)
+   inline void tree_hash(const Hash *hashes, size_t count, Hash &root_hash)
     {
         tree_hash(reinterpret_cast<const char(*)[HASH_SIZE]>(hashes), count, reinterpret_cast<char *>(&root_hash));
     }
@@ -483,5 +461,4 @@ inline void ninja_slow_hash_v1(const void *data, size_t length, Hash &hash)
             path,
             reinterpret_cast<char *>(&root_hash));
     }
-	
 } // namespace Crypto
