@@ -706,6 +706,10 @@ int main(int argc, char **argv)
 		TEST_HASH_FUNCTION(ninja_slow_hash, NINJA);
 
         std::cout << std::endl;
+		
+		TEST_HASH_FUNCTION(ninjav1_slow_hash, NINJAV1);
+
+        std::cout << std::endl;
 
         for (uint64_t height = 0; height <= 8192; height += 512)
         {
