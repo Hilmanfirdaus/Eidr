@@ -792,6 +792,7 @@ namespace CryptoNote
         m_upgradeHeightV3(currency.m_upgradeHeightV3),
         m_upgradeHeightV6(currency.m_upgradeHeightV6),
         m_upgradeHeightV7(currency.m_upgradeHeightV7),
+		m_upgradeHeightV8(currency.m_upgradeHeightV8),
         m_upgradeVotingThreshold(currency.m_upgradeVotingThreshold),
         m_upgradeVotingWindow(currency.m_upgradeVotingWindow),
         m_upgradeWindow(currency.m_upgradeWindow),
@@ -858,6 +859,7 @@ namespace CryptoNote
         upgradeHeightV3(parameters::UPGRADE_HEIGHT_V3);
         upgradeHeightV6(parameters::UPGRADE_HEIGHT_V6);
         upgradeHeightV7(parameters::UPGRADE_HEIGHT_V7);
+		upgradeHeightV8(parameters::UPGRADE_HEIGHT_V8);
         upgradeVotingThreshold(parameters::UPGRADE_VOTING_THRESHOLD);
         upgradeVotingWindow(parameters::UPGRADE_VOTING_WINDOW);
         upgradeWindow(parameters::UPGRADE_WINDOW);
