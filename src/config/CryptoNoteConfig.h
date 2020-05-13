@@ -235,6 +235,8 @@ namespace CryptoNote
         const uint32_t UPGRADE_HEIGHT_V6 = 400000; // Upgrade height for Chukwa switch.
 		
 		const uint32_t UPGRADE_HEIGHT_V7 = 1000000; // Upgrade height for Ninja switch.
+		
+		const uint32_t UPGRADE_HEIGHT_V8 = 1150000; // Upgrade height for Ninja v1 switch.
 
         const uint32_t UPGRADE_HEIGHT_CURRENT = UPGRADE_HEIGHT_V7;
 
@@ -251,6 +253,7 @@ namespace CryptoNote
             400000, // 2
             950000, // 3
 		   1000000, // 4 Argon2id/Ninja
+		   1150000, // 5 Argon2id/Ninja v1 adjustment
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
@@ -295,6 +298,7 @@ namespace CryptoNote
     const uint8_t BLOCK_MAJOR_VERSION_3 = 3; /* UPGRADE_HEIGHT_V3 */
     const uint8_t BLOCK_MAJOR_VERSION_6 = 6; /* UPGRADE_HEIGHT_V6 */
     const uint8_t BLOCK_MAJOR_VERSION_7 = 7; /* UPGRADE_HEIGHT_V7 */
+	const uint8_t BLOCK_MAJOR_VERSION_8 = 8; /* UPGRADE_HEIGHT_V8 */
 
     const uint8_t BLOCK_MINOR_VERSION_0 = 0;
 
@@ -307,6 +311,7 @@ namespace CryptoNote
             {BLOCK_MAJOR_VERSION_3, Crypto::cn_slow_hash_v0}, /* UPGRADE_HEIGHT_V3 */
             {BLOCK_MAJOR_VERSION_6, Crypto::chukwa_slow_hash}, /* UPGRADE_HEIGHT_V6 */
 			{BLOCK_MAJOR_VERSION_7, Crypto::ninja_slow_hash} /* UPGRADE_HEIGHT_V7 */
+			{BLOCK_MAJOR_VERSION_8, Crypto::ninja_slow_hash_v1} /* UPGRADE_HEIGHT_V8 */
     };
 
     const size_t BLOCKS_IDS_SYNCHRONIZING_DEFAULT_COUNT = 10000; // by default, blocks ids count in synchronizing
@@ -325,9 +330,9 @@ namespace CryptoNote
 
     // P2P Network Configuration Section - This defines our current P2P network version
     // and the minimum version for communication between nodes
-    const uint8_t P2P_CURRENT_VERSION = 9;
+    const uint8_t P2P_CURRENT_VERSION = 10;
 
-    const uint8_t P2P_MINIMUM_VERSION = 8;
+    const uint8_t P2P_MINIMUM_VERSION = 9;
 
     // This defines the minimum P2P version required for lite blocks propogation
     const uint8_t P2P_LITE_BLOCKS_PROPOGATION_VERSION = 4;
@@ -372,7 +377,7 @@ namespace CryptoNote
         "213.136.89.10:31800",
         "209.126.2.29:11800",
         "209.126.2.29:21800",        
-	"167.86.88.166:11800", 
+	    "167.86.88.166:11800", 
         "173.249.41.102:11800",
         "130.185.202.159:11800"
     };

@@ -64,6 +64,7 @@ const std::string CN_TURTLE_LITE_SLOW_HASH_V2 = "b2172ec9466e1aee70ec8572a14c233
 const std::string CHUKWA = "c0dad0eeb9c52e92a1c3aa5b76a3cb90bd7376c28dce191ceeb1096e3a390d2e";
 
 const std::string NINJA = "87766c65eb2305545bb8bb5b6dddee060f9c43051de3a94c554223422549d0f5";
+const std::string NINJA_v1 = "b2fb902bf49599839a61ca28a4f981d549688fcd8759c405e679ed9ef136d1b9";
 
 const std::string CN_SOFT_SHELL_V0[] = {"5e1891a15d5d85c09baf4a3bbe33675cfa3f77229c8ad66c01779e590528d6d3",
                                         "e1239347694df77cab780b7ec8920ec6f7e48ecef1d8c368e06708c08e1455f1",
@@ -758,6 +759,7 @@ int main(int argc, char **argv)
             BENCHMARK(chukwa_slow_hash, o_iterations_long);
 			
 			BENCHMARK(ninja_slow_hash, o_iterations_long);
+			BENCHMARK(ninja_slow_hash_v1, o_iterations_long);
         }
     }
     catch (std::exception &e)
