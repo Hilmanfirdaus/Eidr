@@ -254,11 +254,11 @@ namespace CryptoNote
             950000, // 3
             1000000, // 4 Argon2id/Ninja
             1150000, // 5 Argon2id/Ninja v1 adjustment
-	    1550000, //ninja with 5 decimals
+	    1550000, //6 ninja with 5 decimals
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
-        const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX = 5;
+        const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX = 6;
 
         const uint64_t FORK_HEIGHTS_SIZE = sizeof(FORK_HEIGHTS) / sizeof(*FORK_HEIGHTS);
 
