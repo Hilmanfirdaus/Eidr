@@ -20,19 +20,20 @@ int main(int argc, char **argv)
 
     std::ofstream logFile;
 
-    if (config.loggingFilePath) {
+    if (config.loggingFilePath)
+    {
         logFile.open(*config.loggingFilePath, std::ios_base::app);
     }
 
     Logger::logger.setLogCallback([&config, &logFile](
-        const std::string prettyMessage,
-        const std::string message,
-        const Logger::LogLevel level,
-        const std::vector<Logger::LogCategory> categories) {
-
+                                      const std::string prettyMessage,
+                                      const std::string message,
+                                      const Logger::LogLevel level,
+                                      const std::vector<Logger::LogCategory> categories) {
         std::cout << prettyMessage << std::endl;
 
-        if (config.loggingFilePath) {
+        if (config.loggingFilePath)
+        {
             logFile << prettyMessage << std::endl;
         }
     });
@@ -62,7 +63,7 @@ int main(int argc, char **argv)
         std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
         std::cout << "Want documentation on how to use the wallet-api?\n"
-                     "See https://ninjacoin.github.io/wallet-api-docs/\n\n";
+                     "See https://turtlecoin.github.io/wallet-api-docs/\n\n";
 
         std::string address = "http://" + config.rpcBindIp + ":" + std::to_string(config.port);
 

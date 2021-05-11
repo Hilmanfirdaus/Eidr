@@ -1,7 +1,7 @@
 // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers
 // Copyright (c) 2014-2018, The Monero Project
 // Copyright (c) 2018-2020, The TurtleCoin Developers
-// Copyright (c) 2019-2020, The NinjaCoin Developers
+// Copyright (c) 2019-2021, The NinjaCoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -11,9 +11,11 @@
 #include <crypto/hash.h>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <initializer_list>
 #include <limits>
 #include <string>
+#include <unordered_map>
 
 namespace CryptoNote
 {
@@ -87,7 +89,7 @@ namespace CryptoNote
         const size_t CRYPTONOTE_DISPLAY_DECIMAL_POINT = 5;
 
         /* TODO: Remove? */
-        const uint64_t MINIMUM_FEE = UINT64_C(10000);
+        const uint64_t MINIMUM_FEE = UINT64_C(10);
 
         /* Fee per byte is rounded up in chunks. This helps makes estimates
          * more accurate. It's suggested to make this a power of two, to relate
@@ -97,10 +99,10 @@ namespace CryptoNote
         /* Fee to charge per byte of transaction. Will be applied in chunks, see
          * above. This value comes out to 1.953125. We use this value instead of
          * something like 2 because it makes for pretty resulting fees
-         * - 5 TRTL vs 5.12 TRTL. You can read this as.. the fee per chunk
+         * - 5 NINJA vs 5.12 NINJA. You can read this as.. the fee per chunk
          * is 500 atomic units. The fee per byte is 500 / chunk size. */
         const double MINIMUM_FEE_PER_BYTE_V1 = 500.00 / FEE_PER_BYTE_CHUNK_SIZE;
-        
+
         /* Height for our first fee to byte change to take effect. */
         const uint64_t MINIMUM_FEE_PER_BYTE_V1_HEIGHT = 950000;
 
@@ -124,7 +126,7 @@ namespace CryptoNote
 
         const uint32_t MIXIN_LIMITS_V3_HEIGHT = 472000;
 
-        /* The mixin to use by default with zedwallet and ninja-service */
+        /* The mixin to use by default with wallet software */
         /* DEFAULT_MIXIN_V0 is the mixin used before MIXIN_LIMITS_V1_HEIGHT is started */
         const uint64_t DEFAULT_MIXIN_V0 = 3;
 
@@ -178,15 +180,15 @@ namespace CryptoNote
 
         const uint64_t MAX_EXTRA_SIZE_V2_HEIGHT = 400000;
 
-        /* 25 trillion atomic, or 250 billion TRTL -> Max supply / mixin+1 outputs */
+        /* 25 trillion atomic, or 250 million NINJA -> Max supply / mixin+1 outputs */
         /* This is enforced on the daemon side. An output > 250 billion causes
          * an invalid block. */
-        const uint64_t MAX_OUTPUT_SIZE_NODE   = 250'000'000'000'00;
+        const uint64_t MAX_OUTPUT_SIZE_NODE = 250'000'000'00000;
 
-        /* 100 billion atomic, or 1 billion TRTL */
+        /* 250 million NINJA */
         /* This is enforced on the client side. An output > 1 billion will not
          * be created in a transaction */
-        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 1'000'000'000'00;
+        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 250'000'000'00000;
 
         const uint64_t MAX_OUTPUT_SIZE_HEIGHT = 950000;
 
@@ -198,6 +200,11 @@ namespace CryptoNote
         const uint64_t BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT = 0;
 
         const uint64_t TRANSACTION_INPUT_BLOCKTIME_VALIDATION_HEIGHT = 0;
+
+        /* Coinbase transactions must include the recipient address + tx priv
+         * key in tx_extra to verify the outputs go to that address after this
+         * height. */
+        const uint64_t COINBASE_TRANSACTION_OUTPUT_CLAIMING_HEIGHT = 2'200'000;
 
         /* This describes how many blocks of "wiggle" room transactions have regarding
            when the outputs can be spent based on a reasonable belief that the outputs
@@ -233,11 +240,11 @@ namespace CryptoNote
 
         const uint32_t UPGRADE_HEIGHT_V3 = 2;
 
-        const uint32_t UPGRADE_HEIGHT_V6 = 400000; // Upgrade height for Chukwa switch.
+        const uint32_t UPGRADE_HEIGHT_V6 = 400000;  // Upgrade height for Chukwa switch.
 		
         const uint32_t UPGRADE_HEIGHT_V7 = 1000000; // Upgrade height for Ninja switch.
 		
-	const uint32_t UPGRADE_HEIGHT_V8 = 1150000; // Upgrade height for Ninja v1 switch.
+	    const uint32_t UPGRADE_HEIGHT_V8 = 1150000;     // Upgrade height for Ninja v1 switch.
 
         const uint32_t UPGRADE_HEIGHT_CURRENT = UPGRADE_HEIGHT_V8;
 
@@ -249,17 +256,18 @@ namespace CryptoNote
 
         /* Block heights we are going to have hard forks at */
         const uint64_t FORK_HEIGHTS[] = {
-            187000, // 0
-            350000, // 1
-            400000, // 2
-            950000, // 3
+            187000,  // 0
+            350000,  // 1
+            400000,  // 2
+            950000,  // 3
             1000000, // 4 Argon2id/Ninja
             1150000, // 5 Argon2id/Ninja v1 adjustment
-	    1550000, //6 ninja with 5 decimals
+	        1550000, // 6 Ninja with 5 decimals
+			2200000, // 7 Ninja V3.0.0
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
-        const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX = 6;
+        const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX = 7;
 
         const uint64_t FORK_HEIGHTS_SIZE = sizeof(FORK_HEIGHTS) / sizeof(*FORK_HEIGHTS);
 
@@ -308,12 +316,12 @@ namespace CryptoNote
 
     const std::unordered_map<uint8_t, std::function<void(const void *data, size_t length, Crypto::Hash &hash)>>
         HASHING_ALGORITHMS_BY_BLOCK_VERSION = {
-            {BLOCK_MAJOR_VERSION_1, Crypto::cn_slow_hash_v0}, /* From zero */
-            {BLOCK_MAJOR_VERSION_2, Crypto::cn_slow_hash_v0}, /* UPGRADE_HEIGHT_V2 */
-            {BLOCK_MAJOR_VERSION_3, Crypto::cn_slow_hash_v0}, /* UPGRADE_HEIGHT_V3 */
+            {BLOCK_MAJOR_VERSION_1, Crypto::cn_slow_hash_v0},  /* From zero */
+            {BLOCK_MAJOR_VERSION_2, Crypto::cn_slow_hash_v0},  /* UPGRADE_HEIGHT_V2 */
+            {BLOCK_MAJOR_VERSION_3, Crypto::cn_slow_hash_v0},  /* UPGRADE_HEIGHT_V3 */
             {BLOCK_MAJOR_VERSION_6, Crypto::chukwa_slow_hash}, /* UPGRADE_HEIGHT_V6 */
-	    {BLOCK_MAJOR_VERSION_7, Crypto::ninja_slow_hash}, /* UPGRADE_HEIGHT_V7 */
-	    {BLOCK_MAJOR_VERSION_8, Crypto::ninjav1_slow_hash} /* UPGRADE_HEIGHT_V8 */
+	        {BLOCK_MAJOR_VERSION_7, Crypto::ninja_slow_hash},  /* UPGRADE_HEIGHT_V7 */
+	        {BLOCK_MAJOR_VERSION_8, Crypto::ninjav1_slow_hash} /* UPGRADE_HEIGHT_V8 */
     };
 
     const size_t BLOCKS_IDS_SYNCHRONIZING_DEFAULT_COUNT = 10000; // by default, blocks ids count in synchronizing
@@ -332,9 +340,9 @@ namespace CryptoNote
 
     // P2P Network Configuration Section - This defines our current P2P network version
     // and the minimum version for communication between nodes
-    const uint8_t P2P_CURRENT_VERSION = 11;
+    const uint8_t P2P_CURRENT_VERSION = 12;
 
-    const uint8_t P2P_MINIMUM_VERSION = 10;
+    const uint8_t P2P_MINIMUM_VERSION = 11;
 
     // This defines the minimum P2P version required for lite blocks propogation
     const uint8_t P2P_LITE_BLOCKS_PROPOGATION_VERSION = 4;
@@ -358,10 +366,15 @@ namespace CryptoNote
     const size_t P2P_DEFAULT_HANDSHAKE_INVOKE_TIMEOUT = 5000; // 5 seconds
     const char P2P_STAT_TRUSTED_PUB_KEY[] = "";
 
-    const uint64_t DATABASE_WRITE_BUFFER_MB_DEFAULT_SIZE = 64; // 64 MB
-    const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE = 64; // 64 MB
-    const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES = 125; // 125 files
-    const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT = 4; // 4 DB threads
+    const uint64_t ROCKSDB_WRITE_BUFFER_MB = 256; // 256 MB
+    const uint64_t ROCKSDB_READ_BUFFER_MB = 128; // 128 MB
+    const uint64_t ROCKSDB_MAX_OPEN_FILES = 125; // 125 files
+    const uint64_t ROCKSDB_BACKGROUND_THREADS = 4; // 4 DB threads
+
+    const uint64_t LEVELDB_WRITE_BUFFER_MB = 64; // 64 MB
+    const uint64_t LEVELDB_READ_BUFFER_MB = 64; // 64 MB
+    const uint64_t LEVELDB_MAX_OPEN_FILES = 128; // 128 files
+    const uint64_t LEVELDB_MAX_FILE_SIZE_MB = 1024; // 1024MB = 1GB
 
     const char LATEST_VERSION_URL[] = "https://github.com/NinjaCoin-Master/NinjaCoin/releases/latest";
 
@@ -379,7 +392,7 @@ namespace CryptoNote
         "213.136.89.10:31800",
         "209.126.2.29:11800",
         "209.126.2.29:21800",        
-	"167.86.88.166:11800", 
+	    "167.86.88.166:11800", 
         "173.249.41.102:11800",
         "130.185.202.159:11800"
     };

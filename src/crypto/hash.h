@@ -325,7 +325,7 @@ namespace Crypto
             CN_TURTLE_ITERATIONS);
     }
 
-    // CryptoNight Soft Shell
+   // CryptoNight Soft Shell
     inline void cn_soft_shell_slow_hash_v0(const void *data, size_t length, Hash &hash, uint32_t height)
     {
         uint32_t base_offset = (height % CN_SOFT_SHELL_WINDOW);

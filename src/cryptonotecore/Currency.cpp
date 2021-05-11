@@ -53,7 +53,7 @@ namespace CryptoNote
 
     bool Currency::generateGenesisBlock()
     {
-        genesisBlockTemplate = BlockTemplate{};
+        genesisBlockTemplate = BlockTemplate {};
 
         std::string genesisCoinbaseTxHex = CryptoNote::parameters::GENESIS_COINBASE_TX_HEX;
         BinaryArray minerTxBlob;
@@ -239,11 +239,26 @@ namespace CryptoNote
         tx.outputs.clear();
         tx.extra.clear();
 
+        /**
+         * To avoid weird parsing errors in the TX_EXTRA bytes, it's far safer to make sure
+         * that we always add the fields in ORDER of the their TAG number
+         */
+
         KeyPair txkey = generateKeyPair();
-        addTransactionPublicKeyToExtra(tx.extra, txkey.publicKey);
+        addTransactionPublicKeyToExtra(tx.extra, txkey.publicKey); // TAG 0x01
+
+        tx.extra.push_back(Constants::TX_EXTRA_RECIPIENT_PUBLIC_VIEW_KEY_IDENTIFIER); // TAG 0x04
+        std::copy(std::begin(publicViewKey.data), std::end(publicViewKey.data), std::back_inserter(tx.extra));
+
+        tx.extra.push_back(Constants::TX_EXTRA_RECIPIENT_PUBLIC_SPEND_KEY_IDENTIFIER); // TAG 0x05
+        std::copy(std::begin(publicSpendKey.data), std::end(publicSpendKey.data), std::back_inserter(tx.extra));
+
+        tx.extra.push_back(Constants::TX_EXTRA_TRANSACTION_PRIVATE_KEY_IDENTIFIER); // TAG 0x06
+        std::copy(std::begin(txkey.secretKey.data), std::end(txkey.secretKey.data), std::back_inserter(tx.extra));
+
         if (!extraNonce.empty())
         {
-            if (!addExtraNonceToTransactionExtra(tx.extra, extraNonce))
+            if (!addPoolNonceToTransactionExtra(tx.extra, extraNonce)) // TAG 0x07
             {
                 return false;
             }
@@ -295,8 +310,8 @@ namespace CryptoNote
 
             if (!(r))
             {
-                logger(ERROR, BRIGHT_RED) << "while creating outs: failed to generate_key_derivation("
-                                          << publicViewKey << ", " << txkey.secretKey << ")";
+                logger(ERROR, BRIGHT_RED) << "while creating outs: failed to generate_key_derivation(" << publicViewKey
+                                          << ", " << txkey.secretKey << ")";
                 return false;
             }
 
@@ -792,7 +807,7 @@ namespace CryptoNote
         m_upgradeHeightV3(currency.m_upgradeHeightV3),
         m_upgradeHeightV6(currency.m_upgradeHeightV6),
         m_upgradeHeightV7(currency.m_upgradeHeightV7),
-		m_upgradeHeightV8(currency.m_upgradeHeightV8),
+        m_upgradeHeightV8(currency.m_upgradeHeightV8),
         m_upgradeVotingThreshold(currency.m_upgradeVotingThreshold),
         m_upgradeVotingWindow(currency.m_upgradeVotingWindow),
         m_upgradeWindow(currency.m_upgradeWindow),
@@ -859,7 +874,7 @@ namespace CryptoNote
         upgradeHeightV3(parameters::UPGRADE_HEIGHT_V3);
         upgradeHeightV6(parameters::UPGRADE_HEIGHT_V6);
         upgradeHeightV7(parameters::UPGRADE_HEIGHT_V7);
-		upgradeHeightV8(parameters::UPGRADE_HEIGHT_V8);
+        upgradeHeightV8(parameters::UPGRADE_HEIGHT_V8);
         upgradeVotingThreshold(parameters::UPGRADE_VOTING_THRESHOLD);
         upgradeVotingWindow(parameters::UPGRADE_VOTING_WINDOW);
         upgradeWindow(parameters::UPGRADE_WINDOW);
@@ -878,9 +893,7 @@ namespace CryptoNote
         const auto publicViewKey = Constants::NULL_PUBLIC_KEY;
         const auto publicSpendKey = Constants::NULL_PUBLIC_KEY;
 
-        m_currency.constructMinerTx(
-            1, 0, 0, 0, 0, 0, publicViewKey, publicSpendKey, tx
-        );
+        m_currency.constructMinerTx(1, 0, 0, 0, 0, 0, publicViewKey, publicSpendKey, tx);
 
         return tx;
     }

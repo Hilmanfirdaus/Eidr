@@ -15,10 +15,10 @@ namespace ApiConstants
     /* The length of the address after removing the prefix */
     const uint16_t addressBodyLength = WalletConfig::standardAddressLength - WalletConfig::addressPrefix.length();
 
-    /* This is the equivalent of TRTL[a-zA-Z0-9]{95} but working for all coins */
+    /* This is the equivalent of NINJA[a-zA-Z0-9]{95} but working for all coins */
     const std::string addressRegex =
-        std::string(WalletConfig::addressPrefix) + "[a-zA-Z0-9]{" + std::to_string(addressBodyLength) + "}";
+        "(" + std::string(WalletConfig::addressPrefix) + "[a-zA-Z0-9]{" + std::to_string(addressBodyLength) + "})";
 
     /* 64 char, hex */
-    const std::string hashRegex = "[a-fA-F0-9]{64}";
+    const std::string hashRegex = "([a-fA-F0-9]{64})";
 } // namespace ApiConstants

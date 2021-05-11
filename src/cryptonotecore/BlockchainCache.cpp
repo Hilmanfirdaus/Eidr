@@ -1463,7 +1463,7 @@ namespace CryptoNote
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_3, currency.upgradeHeight(BLOCK_MAJOR_VERSION_3));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_6, currency.upgradeHeight(BLOCK_MAJOR_VERSION_6));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_7, currency.upgradeHeight(BLOCK_MAJOR_VERSION_7));
-		upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_8, currency.upgradeHeight(BLOCK_MAJOR_VERSION_8));
+        upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_8, currency.upgradeHeight(BLOCK_MAJOR_VERSION_8));
         return upgradeManager.getBlockMajorVersion(height);
     }
 

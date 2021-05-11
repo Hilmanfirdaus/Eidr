@@ -284,6 +284,7 @@ namespace CryptoNote
         {
             auto batch = BlockchainReadBatch().requestTransactionCountByPaymentId(paymentId);
             auto error = database.read(batch);
+
             if (error)
             {
                 throw std::system_error(error, "Error while reading transactions count by payment id");
@@ -354,9 +355,7 @@ namespace CryptoNote
                 std::function<PackedOutIndex(IBlockchainCache::Amount amount, uint32_t globalOutputIndex)> retriever_,
                 IBlockchainCache::Amount amount_,
                 uint32_t globalOutputIndex_):
-                retriever(retriever_),
-                amount(amount_),
-                globalOutputIndex(globalOutputIndex_)
+                retriever(retriever_), amount(amount_), globalOutputIndex(globalOutputIndex_)
             {
             }
 
@@ -1189,6 +1188,7 @@ namespace CryptoNote
     {
         auto batch = BlockchainReadBatch().requestBlockIndexBySpentKeyImage(keyImage);
         auto res = database.readThreadSafe(batch);
+
         if (res)
         {
             logger(Logging::ERROR) << "checkIfSpent failed, request to database failed: " << res.message();
@@ -1331,7 +1331,7 @@ namespace CryptoNote
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_3, currency.upgradeHeight(BLOCK_MAJOR_VERSION_3));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_6, currency.upgradeHeight(BLOCK_MAJOR_VERSION_6));
         upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_7, currency.upgradeHeight(BLOCK_MAJOR_VERSION_7));
-		upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_8, currency.upgradeHeight(BLOCK_MAJOR_VERSION_8));
+        upgradeManager.addMajorBlockVersion(BLOCK_MAJOR_VERSION_8, currency.upgradeHeight(BLOCK_MAJOR_VERSION_8));
         return upgradeManager.getBlockMajorVersion(height);
     }
 
@@ -2126,7 +2126,7 @@ namespace CryptoNote
 
         std::unordered_map<Crypto::Hash, std::vector<uint64_t>> indexes;
 
-        for (const auto [txHash, transaction] : txs)
+        for (const auto &[txHash, transaction] : txs)
         {
             indexes[txHash].assign(transaction.globalIndexes.begin(), transaction.globalIndexes.end());
         }
@@ -2220,12 +2220,13 @@ namespace CryptoNote
 
         BlockchainWriteBatch batch;
 
-        CachedBlockInfo blockInfo {genesisBlock.getBlockHash(),
-                                   genesisBlock.getBlock().timestamp,
-                                   1,
-                                   minerReward,
-                                   1,
-                                   uint32_t(baseTransactionSize)};
+        CachedBlockInfo blockInfo {
+            genesisBlock.getBlockHash(),
+            genesisBlock.getBlock().timestamp,
+            1,
+            minerReward,
+            1,
+            uint32_t(baseTransactionSize)};
 
         auto baseTransaction = genesisBlock.getBlock().baseTransaction;
         auto cachedBaseTransaction = CachedTransaction {std::move(baseTransaction)};

@@ -20,10 +20,7 @@ BlockDownloader::BlockDownloader(
     const uint64_t startHeight,
     const uint64_t startTimestamp):
 
-    m_daemon(daemon),
-    m_subWallets(subWallets),
-    m_startHeight(startHeight),
-    m_startTimestamp(startTimestamp)
+    m_daemon(daemon), m_subWallets(subWallets), m_startHeight(startHeight), m_startTimestamp(startTimestamp)
 {
 }
 
@@ -300,7 +297,7 @@ bool BlockDownloader::downloadBlocks()
 
     std::vector<std::tuple<WalletTypes::WalletBlockInfo, uint32_t>> blocksWithIndex;
 
-    for (const auto block : blocks)
+    for (const auto &block : blocks)
     {
         blocksWithIndex.push_back({block, m_arrivalIndex++});
     }
