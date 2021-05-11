@@ -188,7 +188,7 @@ namespace CryptoNote
         /* 250 million NINJA */
         /* This is enforced on the client side. An output > 1 billion will not
          * be created in a transaction */
-        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 250'000'000'00000;
+        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 100'000'000'00000;
 
         const uint64_t MAX_OUTPUT_SIZE_HEIGHT = 950000;
 
