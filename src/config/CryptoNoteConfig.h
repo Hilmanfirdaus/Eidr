@@ -181,12 +181,12 @@ namespace CryptoNote
         const uint64_t MAX_EXTRA_SIZE_V2_HEIGHT = 400000;
 
         /* 25 trillion atomic, or 250 million NINJA -> Max supply / mixin+1 outputs */
-        /* This is enforced on the daemon side. An output > 250 billion causes
+        /* This is enforced on the daemon side. An output > 250 million causes
          * an invalid block. */
         const uint64_t MAX_OUTPUT_SIZE_NODE = 250'000'000'00000;
 
-        /* 100 million NINJA */
-        /* This is enforced on the client side. An output > 1 billion will not
+        /* 1 million NINJA */
+        /* This is enforced on the client side. An output > 1 million will not
          * be created in a transaction */
         const uint64_t MAX_OUTPUT_SIZE_CLIENT = 1'000'000'00000;
 
