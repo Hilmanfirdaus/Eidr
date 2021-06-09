@@ -185,10 +185,10 @@ namespace CryptoNote
          * an invalid block. */
         const uint64_t MAX_OUTPUT_SIZE_NODE = 250'000'000'00000;
 
-        /* 1 million NINJA */
-        /* This is enforced on the client side. An output > 1 million will not
+        /* 100 million NINJA */
+        /* This is enforced on the client side. An output > 100 million will not
          * be created in a transaction */
-        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 1'000'000'00000;
+        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 100'000'000'00000;
 
         const uint64_t MAX_OUTPUT_SIZE_HEIGHT = 950000;
 
