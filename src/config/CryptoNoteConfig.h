@@ -188,7 +188,7 @@ namespace CryptoNote
         /* 100 million NINJA */
         /* This is enforced on the client side. An output > 100 million will not
          * be created in a transaction */
-        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 100'000'000'00000;
+        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 1'000'000'00000;
 
         const uint64_t MAX_OUTPUT_SIZE_HEIGHT = 950000;
 
@@ -244,7 +244,7 @@ namespace CryptoNote
 		
         const uint32_t UPGRADE_HEIGHT_V7 = 1000000; // Upgrade height for Ninja switch.
 		
-	    const uint32_t UPGRADE_HEIGHT_V8 = 1150000;     // Upgrade height for Ninja v1 switch.
+	const uint32_t UPGRADE_HEIGHT_V8 = 1150000;     // Upgrade height for Ninja v1 switch.
 
         const uint32_t UPGRADE_HEIGHT_CURRENT = UPGRADE_HEIGHT_V8;
 
@@ -262,8 +262,8 @@ namespace CryptoNote
             950000,  // 3
             1000000, // 4 Argon2id/Ninja
             1150000, // 5 Argon2id/Ninja v1 adjustment
-	        1550000, // 6 Ninja with 5 decimals
-			2200000, // 7 Ninja V3.0.0
+	    1550000, // 6 Ninja with 5 decimals
+	    2200000 // 7 Ninja V3.0.0
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
