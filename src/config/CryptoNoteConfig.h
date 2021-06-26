@@ -188,7 +188,7 @@ namespace CryptoNote
         /* 100 million NINJA */
         /* This is enforced on the client side. An output > 100 million will not
          * be created in a transaction */
-        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 100'000'000'00000;
+        const uint64_t MAX_OUTPUT_SIZE_CLIENT = 1'000'000'00000;
 
         const uint64_t MAX_OUTPUT_SIZE_HEIGHT = 950000;
 
@@ -262,8 +262,8 @@ namespace CryptoNote
             950000,  // 3
             1000000, // 4 Argon2id/Ninja
             1150000, // 5 Argon2id/Ninja v1 adjustment
-	    1550000, // 6 Ninja with 5 decimals
-	    2200000 // 7 Ninja V3.0.0
+	        1550000, // 6 Ninja with 5 decimals
+	        2200000 // 7 Ninja V3.0.0
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
@@ -366,8 +366,8 @@ namespace CryptoNote
     const size_t P2P_DEFAULT_HANDSHAKE_INVOKE_TIMEOUT = 5000; // 5 seconds
     const char P2P_STAT_TRUSTED_PUB_KEY[] = "";
 
-    const uint64_t ROCKSDB_WRITE_BUFFER_MB = 256; // 256 MB
-    const uint64_t ROCKSDB_READ_BUFFER_MB = 128; // 128 MB
+    const uint64_t ROCKSDB_WRITE_BUFFER_MB = 64; // 256 MB
+    const uint64_t ROCKSDB_READ_BUFFER_MB = 64; // 128 MB
     const uint64_t ROCKSDB_MAX_OPEN_FILES = 125; // 125 files
     const uint64_t ROCKSDB_BACKGROUND_THREADS = 4; // 4 DB threads
 
@@ -392,7 +392,7 @@ namespace CryptoNote
         "213.136.89.10:31800",
         "209.126.2.29:11800",
         "209.126.2.29:21800",        
-	"167.86.88.166:11800", 
+	    "167.86.88.166:11800", 
         "173.249.41.102:11800",
         "130.185.202.159:11800"
     };
